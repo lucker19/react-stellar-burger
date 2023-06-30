@@ -1,9 +1,14 @@
 import React from "react";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import Card from '../card/card';
+import Card from "../card/card";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../utils/prop-types";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredients-detals/ingredients-details";
+
+
+
 
 
 const BurgerIngredients = (props) => {
@@ -53,7 +58,9 @@ const BurgerIngredients = (props) => {
                 ))}
               </ul>
             </ul>
-
+            <Modal handleClose={() => openCard(null)} isOpen={card} header={"Детали ингредиента"}>
+              <IngredientDetails card={card}></IngredientDetails>
+            </Modal>
           </section>
     )
 }
