@@ -25,7 +25,7 @@ const BurgerIngredients = (props) => {
 
     return (
           <section className={styles.ingredients_box}>
-            <h1 className="text text_type_main-large">Собери бургер</h1>
+            <h1 className="text text_type_main-large">Соберите бургер</h1>
             <div className={`mt-5 mb-10`} style={{ display: 'flex' }}>
               <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
                 Булки

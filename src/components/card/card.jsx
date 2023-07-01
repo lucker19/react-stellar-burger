@@ -20,7 +20,7 @@ const Card = ( { card, onClick = () => {} } ) => {
 
 Card.propTypes = {
   card: ingredientPropType.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func.isRequired
 };
 
 export default Card;
