@@ -19,19 +19,19 @@ function Modal(props) {
   if (!props.isOpen) return null;
 
   return ReactDOM.createPortal (
-      (
-          <div className={styles.modal}>
-            <div className={styles.container}>
-              <div className={styles.header}>
-                <p className={'text text_type_main-large'}>{props.header}</p>
-                <button className={styles.close_button}><CloseIcon type="primary" onClick={props.handleClose}/></button>
-              </div>
-              {props.children}
+    (
+       <div className={styles.modal}>
+        <div className={styles.container}>
+            <div className={styles.header}>
+              <p className={'text text_type_main-large'}>{props.header}</p>
+              <button className={styles.close_button}><CloseIcon type="primary" onClick={props.handleClose}/></button>
             </div>
-            <ModalOverlay onClose={props.handleClose} />
+            {props.children}
           </div>
-      ), modalRoot
-  );
+          <ModalOverlay onClose={props.handleClose} />
+        </div>
+        ), modalRoot
+);
 }
 
 export default Modal;
