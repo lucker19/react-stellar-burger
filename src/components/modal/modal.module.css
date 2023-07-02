@@ -8,15 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.5s;
     z-index: 2;
-}
-
-.modal_active {
-    opacity: 1;
-    pointer-events: all;
 }
 
 .header {
@@ -32,4 +24,15 @@
     cursor: pointer;
     background-color: #1C1C21;
     border: none;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 720px;
+    border-radius: 40px;
+    background-color: #1C1C21;
+    z-index: 2;
 }
