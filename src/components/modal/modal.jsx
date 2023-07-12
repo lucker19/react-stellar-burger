@@ -6,15 +6,16 @@ import ModalOverlay from "../modal-overlay/modal-overaly";
 import ReactDOM from "react-dom";
 const modalRoot = document.getElementById('modals');
 
-function Modal(props) {
 
+function Modal(props) {
+  
   React.useEffect(() => {
     const closeOnEscape = e => e.key === "Escape" ? props.handleClose() : null;
     document.body.addEventListener("keydown", closeOnEscape);
     return () => {
       document.removeEventListener("keydown", closeOnEscape);
     };
-  }, [props.handleClose]);
+  }, [props.handleClose,props]);
 
   if (!props.isOpen) return null;
 
@@ -31,7 +32,7 @@ function Modal(props) {
           <ModalOverlay onClose={props.handleClose} />
         </div>
         ), modalRoot
-);
+  );
 }
 
 export default Modal;

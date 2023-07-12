@@ -1,4 +1,4 @@
-import { getOrderServer } from "../../utils/api";
+import { getOrderServer } from "../../../utils/api";
 
 export const GET_ORDER_SERVER = 'GET_ORDER_SERVER';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';

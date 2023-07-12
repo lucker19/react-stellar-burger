@@ -1,4 +1,5 @@
-import { ADD_INGREDIENT_DETAILS, DELETE_INGREDIENT_DETAILS } from "../actions/ingredient-details";
+import { ADD_INGREDIENTS_DETAILS, DELETE_INGREDIENTS_DETAILS } from "../actions/ingredients-details"
+
 
 const initialState = {
   ingredientDetails: null
@@ -6,13 +7,13 @@ const initialState = {
 
 export const ingredientDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_INGREDIENT_DETAILS: {
+    case ADD_INGREDIENTS_DETAILS: {
       return {
         ...state,
         ingredientDetails: action.payload
       };
     }
-    case DELETE_INGREDIENT_DETAILS: {
+    case DELETE_INGREDIENTS_DETAILS: {
       return {
         ...state,
         ingredientDetails: null
