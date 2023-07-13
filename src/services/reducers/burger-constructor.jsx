@@ -1,7 +1,7 @@
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
-  SORT_INGREDIENTS
+  SORT_INGREDIENTS,
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -12,26 +12,27 @@ const initialState = {
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
-      if (action.payload.type === 'bun') {
+      if (action.payload.type === "bun") {
         return {
           buns: action.payload,
-          fillings: state.fillings
+          fillings: state.fillings,
         };
       } else {
-          return {
-            ...state,
-          fillings: [...state.fillings, action.payload]
+        return {
+          ...state,
+          fillings: [...state.fillings, action.payload],
         };
       }
     }
     case DELETE_INGREDIENT: {
       const index = state.fillings.indexOf(action.ingredient);
+      const fillings = [...state.fillings];
       if (index > -1) {
-        state.fillings.splice(index, 1);
+        fillings.splice(index, 1);
       }
       return {
         ...state,
-        fillings: [...state.fillings]
+        fillings,
       };
     }
     case SORT_INGREDIENTS: {
@@ -39,7 +40,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       main.splice(action.toIndex, 0, main.splice(action.fromIndex, 1)[0]);
       return {
         ...state,
-        fillings: [...main]
+        fillings: [...main],
       };
     }
     default:

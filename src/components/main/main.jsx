@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { deleteIngredient, sortIngredients } from "../services/actions/burger-constructor";
+import { deleteIngredient, sortIngredients } from "../../services/actions/burger-constructor";
 
 
 const MainIngredient = ({ item, index }) => {

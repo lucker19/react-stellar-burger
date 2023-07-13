@@ -1,21 +1,21 @@
 .ingredients_box {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px;
-    margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin-top: 40px;
 }
 
 .ingredients {
-    max-height: 716px;
-    overflow-x: hidden;
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  max-height: 716px;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .card {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 32px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px 0;
 }
