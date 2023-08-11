@@ -1,19 +1,32 @@
 import React from "react";
 import styles from "./ingredients-details.module.css";
 import { ingredientPropType } from "../../utils/prop-types";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 
-function IngredientDetails({ card }) {
+function IngredientDetails() {
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
+  const getIngredientsList = (store) => store.ingredients.ingredients;
+  const ingredientsList = useSelector(getIngredientsList);
+  const { ingredientId } = useParams();
+  const ingredient = ingredientsList.find((item) => item._id === ingredientId);
+
   return (
-    <div className={styles.container}>
-      <img className={styles.image} src={card.image} alt="Ингредиент" />
-      <p className={"mt-4 text text_type_main-medium"}>{card.name}</p>
+    <div
+      className={background ? styles.modal_container : styles.main_container}
+    >
+      <img className={styles.image} src={ingredient.image} alt="Ингредиент" />
+      <p className={"mt-4 text text_type_main-medium"}>{ingredient.name}</p>
       <ul className={`mt-8 ${styles.list}`}>
         <li className={styles.list_card}>
           <p className={"text text_type_main-default text_color_inactive"}>
             Калории,ккал
           </p>
           <p className={"text text_type_main-default text_color_inactive"}>
-            {card.calories}
+            {ingredient.calories}
           </p>
         </li>
         <li className={styles.list_card}>
@@ -21,7 +34,7 @@ function IngredientDetails({ card }) {
             Белки, г
           </p>
           <p className={"text text_type_main-default text_color_inactive"}>
-            {card.proteins}
+            {ingredient.proteins}
           </p>
         </li>
         <li className={styles.list_card}>
@@ -29,7 +42,7 @@ function IngredientDetails({ card }) {
             Жиры, г
           </p>
           <p className={"text text_type_main-default text_color_inactive"}>
-            {card.fat}
+            {ingredient.fat}
           </p>
         </li>
         <li className={styles.list_card}>
@@ -37,7 +50,7 @@ function IngredientDetails({ card }) {
             Углеводы, г
           </p>
           <p className={"text text_type_main-default text_color_inactive"}>
-            {card.carbohydrates}
+            {ingredient.carbohydrates}
           </p>
         </li>
       </ul>
