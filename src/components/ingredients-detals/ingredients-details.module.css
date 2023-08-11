@@ -1,26 +1,26 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 40px;
-    width: 720px;
-    background-color: #1C1C21;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 40px;
+  width: 720px;
+  background-color: #1c1c21;
 }
 
 .image {
-    min-width: 480px;
+  min-width: 480px;
 }
 
 .list {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    gap: 20px;
-    margin-bottom: 60px;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 20px;
+  margin-bottom: 60px;
 }
 
 .list_card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
