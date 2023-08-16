@@ -1,0 +1,55 @@
+.container {
+  max-width: 1330px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.profile {
+  display: flex;
+  gap: 60px;
+}
+
+.links {
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  text-decoration: none;
+  color: #8585ad;
+  min-height: 64px;
+  display: flex;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #f2f2f3;
+}
+
+.current_link {
+  color: #f2f2f3;
+}
+
+.text {
+  opacity: 0.4;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.buttons {
+  display: none;
+}
+
+.buttons_active {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

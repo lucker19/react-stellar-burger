@@ -14,9 +14,14 @@ import { getIngredients } from "../../services/actions/ingredients";
 import { getOrder } from "../../services/actions/order";
 import { addIngredient } from "../../services/actions/burger-constructor";
 import { v4 as uuidv4 } from "uuid";
+import {useNavigate} from "react-router-dom";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getIngredients())
+  }, [dispatch]);
 
   const getBuns = (store) => store.burgerConstructor.buns;
   const buns = useSelector(getBuns);
@@ -26,16 +31,31 @@ const BurgerConstructor = () => {
 
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
+  const getUserData = (store) => store.user.user;
+  const user = useSelector(getUserData);
+
+  const openModal = () => {
+    createOrder();
+    setModalIsOpen(true);
+  };
+
   const createOrder = () => {
     const ingredientsId = fillings.map((item) => item._id);
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     if (buns) {
       ingredientsId.push(buns._id);
     }
     if (ingredientsId.length > 0) {
       dispatch(getOrder(ingredientsId));
-      setModalIsOpen(true);
     }
   };
+
+  const closeModal =() => {
+    setModalIsOpen(false);
+  }
 
   const [, dropRef] = useDrop({
     accept: "ingredient",
@@ -102,18 +122,19 @@ const BurgerConstructor = () => {
           htmlType="button"
           type="primary"
           size="large"
-          onClick={createOrder}
+          onClick={openModal}
         >
           Оформить заказ
         </Button>
       </div>
+        { modalIsOpen &&
       <Modal
-        handleClose={() => setModalIsOpen(false)}
-        isOpen={modalIsOpen}
+       handleClose={closeModal}
         header={""}
       >
         <OrderDetails />
       </Modal>
+        }
     </section>
   );
 };

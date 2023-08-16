@@ -6,6 +6,8 @@
   width: 272px;
   cursor: pointer;
   text-align: center;
+  text-decoration: none;
+  color: white;
 }
 
 .img {
