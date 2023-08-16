@@ -6,12 +6,13 @@ import {
   EmailInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { logOut, updateUser } from "../../services/actions/user";
+import { ReactElement } from "react";
 
-export function ProfilePage() {
+export default function ProfilePage(): ReactElement {
   const dispatch = useDispatch();
-  const getUser = (store) => store.user.user;
+  const getUser = (store : any) => store.user.user;
   const user = useSelector(getUser);
   const [form, setForm] = useState({
     email: user.email,
@@ -19,11 +20,11 @@ export function ProfilePage() {
     name: user.name,
   });
 
-  const onChange = (e) => {
+  const onChange = (e : any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const onResetUserData = (e) => {
+  const onResetUserData = (e : any) => {
     e.preventDefault();
     setForm({
       name: user.name,
@@ -32,7 +33,7 @@ export function ProfilePage() {
     });
   };
 
-  const onUpdateUser = (e) => {
+  const onUpdateUser = (e : any) => {
     e.preventDefault();
     dispatch(updateUser(form));
   };
@@ -86,12 +87,12 @@ export function ProfilePage() {
             errorText={"Ошибка"}
             size={"default"}
           />
-          <EmailInput
+          <Input
             placeholder={"Логин"}
             onChange={onChange}
             value={form.email}
             name="email"
-            icon="EditIcon"
+            icon={"EditIcon"}
           />
           <Input
             type={"password"}

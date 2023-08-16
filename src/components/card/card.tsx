@@ -4,26 +4,30 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientPropType } from "../../utils/prop-types";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
+import { TIngredient} from "../../utils/prop-types";
+import { FC } from "react";
 
-const Card = ({ card }) => {
+interface IIngredientInterface {
+  card: TIngredient
+}
+
+const Card : FC<IIngredientInterface> = ({ card }) => {
   const location = useLocation();
   const ingredientId = card["_id"];
 
-  const getIngredients = (store) => store.burgerConstructor;
+  const getIngredients = (store : any) => store.burgerConstructor;
   const { buns, fillings } = useSelector(getIngredients);
 
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     if (buns && card.type === "bun" && card._id === buns._id) {
-      setCounter(1);
+      setCounter(2);
     } else {
-      setCounter(fillings.filter((item) => item._id === card._id).length);
+      setCounter(fillings?.filter((item : any) => item._id === card._id).length);
     }
   }, [buns, fillings, card._id, card.type]);
 
@@ -56,9 +60,6 @@ const Card = ({ card }) => {
   );
 };
 
-Card.propTypes = {
-  card: ingredientPropType.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
+
 
 export default Card;

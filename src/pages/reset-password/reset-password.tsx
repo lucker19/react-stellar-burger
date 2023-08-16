@@ -5,9 +5,12 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useCallback, useEffect, useState } from "react";
 import { resetPassword } from "../../services/actions/user";
+import { ChangeEvent } from "react";
+import { IUser } from "../../utils/prop-types";
+import { RootState } from "../../services/reducers";
 
 export function ResetPasswordPage() {
   const dispatch = useDispatch();
@@ -17,17 +20,19 @@ export function ResetPasswordPage() {
     token: "",
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const isPasswordChanged = useSelector(
-    (store) => store.user.isPasswordChanged
-  );
+    (store: RootState) => store.user.isPasswordChanged
+  )
+
+   
+
 
   useEffect(() => {
     if (!isPasswordChanged) {
-      console.log(!isPasswordChanged);
       navigate("/");
     }
   }, [navigate, isPasswordChanged]);

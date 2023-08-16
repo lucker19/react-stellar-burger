@@ -6,7 +6,7 @@ const initialState = {
   ingredientsFailed: false
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action : any) => {
   switch(action.type) {
     case GET_INGREDIENTS_SERVER: {
       return {

@@ -1,10 +1,10 @@
 import styles from "./order-details.module.css";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { FC } from "react";
+import { useSelector, useDispatch } from "../../services/hooks";
 import order_accepted from "../../images/order_accepted.svg";
 
-function OrderDetails() {
-  const getOrderNumber = (store) => store.order.order;
+const OrderDetails: FC = () => {
+  const getOrderNumber = (store : any) => store.order.order;
   const orderNumber = useSelector(getOrderNumber);
   return (
     <div className={styles.container}>

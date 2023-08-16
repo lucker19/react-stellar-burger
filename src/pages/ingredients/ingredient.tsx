@@ -1,27 +1,32 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useSelector, useDispatch } from "../../services/hooks";
+import { FC, ReactElement, useEffect } from "react";
 import { getIngredients } from "../../services/actions/ingredients";
 import { useParams } from "react-router";
 import IngredientDetails from "../../components/ingredients-detals/ingredients-details";
 import styles from "./ingredient.module.css";
+import { TIngredient } from "../../utils/prop-types";
 
-export const Ingredient = () => {
+export const Ingredient: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const getIngredientsList = (store) => store.ingredients.ingredients;
+  const getIngredientsList = (store : any) => store.ingredients.ingredients;
   const ingredientsList = useSelector(getIngredientsList);
   const { ingredientId } = useParams();
-  const ingredient = ingredientsList.find((item) => item._id === ingredientId);
+  const ingredient = ingredientsList.find((item: TIngredient) => item._id === ingredientId);
+
+  if (!ingredient) {
+    return null;
+  }
 
   if (ingredient) {
     return (
       <div className={`pt-30 ${styles.ingredients}`}>
         <p className="text text_type_main-large">Детали ингредиента</p>
-        <IngredientDetails item={ingredient} />
+        <IngredientDetails {...ingredient} />
       </div>
     );
   }

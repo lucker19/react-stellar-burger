@@ -48,7 +48,7 @@ const initialState = {
   isPasswordChanged: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SET_AUTH_CHECKED: {
       return {

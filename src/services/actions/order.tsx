@@ -4,8 +4,20 @@ export const GET_ORDER_SERVER = "GET_ORDER_SERVER";
 export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
 
-export const getOrder = (ingredientsId) => {
-  return function (dispatch) {
+export interface IGetOrderServer {
+  readonly type: typeof GET_ORDER_SERVER
+}
+export interface IGetOrderFailed {
+  readonly type: typeof GET_ORDER_FAILED
+}
+export interface IGetOrderSuccess {
+  readonly type: typeof GET_ORDER_SUCCESS
+}
+
+export type TOrderActions = IGetOrderServer | IGetOrderFailed | IGetOrderSuccess
+
+export const getOrder = (ingredientsId: any) => {
+  return function (dispatch: any) {
     dispatch({ type: GET_ORDER_SERVER });
     getOrderServer(ingredientsId).then(({ success, order: { number } }) => {
       if (success) {

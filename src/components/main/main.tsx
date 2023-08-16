@@ -1,19 +1,23 @@
-import React, { useCallback, useRef } from "react";
+import React, { FC, ReactElement, useCallback, useRef } from "react";
 import styles from "../main/main.module.css";
-import { ingredientPropType } from "../../utils/prop-types";
-import PropTypes from "prop-types";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { deleteIngredient, sortIngredients } from "../../services/actions/burger-constructor";
+import { TIngredient} from "../../utils/prop-types";
+
+type TMainProps = {
+  item : TIngredient;
+  index: number;
+}
 
 
-const MainIngredient = ({ item, index }) => {
+const MainIngredient = ({ item, index }: TMainProps): ReactElement => {
 
   const dispatch = useDispatch();
   const ref = useRef(null);
 
-  const onDelete = (item) => {
+  const onDelete = (item : TIngredient) => {
     dispatch(deleteIngredient(item));
   };
 
@@ -26,16 +30,18 @@ const MainIngredient = ({ item, index }) => {
     dispatch(sortIngredients(fromIndex, toIndex))
   }, [dispatch]);
 
+ 
+
   const [, dropRef] = useDrop({
     accept: 'filling',
-    hover(item, monitor) {
+    hover(item: any, monitor) {
       if (!ref.current) return;
       const fromIndex = item.index;
       const toIndex = index;
       if (fromIndex === toIndex) return;
-      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverBoundingRect: DOMRect = targetRef.current.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
+      const clientOffset : any = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
       if (fromIndex < toIndex && hoverClientY < hoverMiddleY) return;
@@ -45,7 +51,7 @@ const MainIngredient = ({ item, index }) => {
     }
   });
 
-  const targetRef = dragRef(dropRef(ref));
+  const targetRef: any = dragRef(dropRef(ref));
 
   return (
       <li className={styles.content} ref={targetRef}>
@@ -60,9 +66,5 @@ const MainIngredient = ({ item, index }) => {
   )
 }
 
-MainIngredient.propTypes = {
-  index: PropTypes.number.isRequired,
-  item: ingredientPropType.isRequired
-};
 
 export default MainIngredient;
