@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { ReactElement, useEffect } from "react";
 import styles from "./burger-constructor.module.css";
 import {
   ConstructorElement,
@@ -8,30 +8,42 @@ import {
 import Modal from "../modal/modal";
 import OrderDetails from "../oreder-details/order-details";
 import MainIngredient from "../main/main";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { getIngredients } from "../../services/actions/ingredients";
 import { getOrder } from "../../services/actions/order";
 import { addIngredient } from "../../services/actions/burger-constructor";
 import { v4 as uuidv4 } from "uuid";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { FC } from "react";
+import { useSelector, useDispatch } from "../../services/hooks";
+import { TIngredient, TIngredientConstructor } from "../../utils/prop-types";
+import { TIngredientsMap, TIngredients } from "../../utils/prop-types";
+import { Ingredient } from "../../pages/ingredients/ingredient";
 
-const BurgerConstructor = () => {
+type TDropItem = {
+  element: TIngredientConstructor;
+  _id: string;
+  bun: TIngredient;
+  fillings: TIngredientConstructor[];
+  uuid: string;
+};
+
+export function BurgerConstructor(): ReactElement {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getIngredients())
+    dispatch(getIngredients());
   }, [dispatch]);
 
-  const getBuns = (store) => store.burgerConstructor.buns;
-  const buns = useSelector(getBuns);
+  const getBuns = (store: any) => store.burgerConstructor.buns;
+  const buns: any = useSelector(getBuns);
 
-  const getFillings = (store) => store.burgerConstructor.fillings;
-  const fillings = useSelector(getFillings);
+  const getFillings = (store: any) => store.burgerConstructor.fillings;
+  const fillings: any = useSelector(getFillings);
 
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
-  const getUserData = (store) => store.user.user;
+  const getUserData = (store: any) => store.user.user;
   const user = useSelector(getUserData);
 
   const openModal = () => {
@@ -40,26 +52,26 @@ const BurgerConstructor = () => {
   };
 
   const createOrder = () => {
-    const ingredientsId = fillings.map((item) => item._id);
+    const ingredientsId = fillings?.map((item: TIngredientConstructor) => item._id);
     if (!user) {
       navigate("/login");
       return;
     }
     if (buns) {
-      ingredientsId.push(buns._id);
+      ingredientsId?.push(buns._id);
     }
-    if (ingredientsId.length > 0) {
+    if (ingredientsId?.length > 0) {
       dispatch(getOrder(ingredientsId));
     }
   };
 
-  const closeModal =() => {
+  const closeModal = () => {
     setModalIsOpen(false);
-  }
+  };
 
   const [, dropRef] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: TDropItem) {
       if (buns && buns._id === item._id) return;
       const ingredient = Object.assign({}, item);
       ingredient.uuid = uuidv4();
@@ -70,7 +82,7 @@ const BurgerConstructor = () => {
   const totalPrice = React.useMemo(
     () =>
       fillings.reduce(
-        (total, item) => (total += item.price),
+        (total: number, item: TIngredientConstructor) => (total += item.price),
         buns ? buns.price * 2 : 0
       ),
     [buns, fillings]
@@ -93,7 +105,7 @@ const BurgerConstructor = () => {
         </div>
 
         <ul className={`custom-scroll ${styles.constructor_list}`}>
-          {fillings.map((item, index) => {
+          {fillings.map((item: TIngredientConstructor, index: number) => {
             return <MainIngredient key={item.uuid} index={index} item={item} />;
           })}
         </ul>
@@ -127,16 +139,13 @@ const BurgerConstructor = () => {
           Оформить заказ
         </Button>
       </div>
-        { modalIsOpen &&
-      <Modal
-       handleClose={closeModal}
-        header={""}
-      >
-        <OrderDetails />
-      </Modal>
-        }
+      {modalIsOpen && (
+        <Modal handleClose={closeModal} header={""}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
-};
+}
 
 export default BurgerConstructor;

@@ -1,20 +1,21 @@
+import { IUser,TIngredient,TIngredients } from "./prop-types";
 export const BASE_URL = 'https://norma.nomoreparties.space/api'
 
-function checkResponse(res) {
+function checkResponse(res : any) {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(`Ошибка ${res.status}`);
 }
 
-function checkSuccess(res) {
+function checkSuccess(res : any) {
   if (res && res.success) {
     return res;
   }
   return Promise.reject(`Ответ не success: ${res}`);
 }
 
-export const request = (endpoint, options) => {
+export const request = (endpoint : string, options : RequestInit) => {
   return fetch(`${BASE_URL}/${endpoint}`, options)
     .then(checkResponse)
     .then(checkSuccess);
@@ -25,7 +26,7 @@ export const getIngredientsServer = () => {
       .then(checkResponse)
 }
   
-  export const getOrderServer = (ingredients) => {
+  export const getOrderServer = (ingredients : TIngredients) => {
     return fetch((`${BASE_URL}/orders`), {
           method: 'POST',
           headers: {
@@ -38,7 +39,7 @@ export const getIngredientsServer = () => {
         .then(checkResponse)
   }
 
-  export const loginRequest = (data) => {
+  export const loginRequest = (data : IUser) => {
     return fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
@@ -52,7 +53,7 @@ export const getIngredientsServer = () => {
         .then(checkResponse);
   };
   
-  export const logoutRequest = (data) => {
+  export const logoutRequest = (data : IUser) => {
     return fetch(`${BASE_URL}/auth/logout`, {
       method: 'POST',
       headers: {
@@ -65,7 +66,7 @@ export const getIngredientsServer = () => {
         .then(checkResponse);
   };
   
-  export const registerRequest = (data) => {
+  export const registerRequest = (data : IUser) => {
     return fetch(`${BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
@@ -80,7 +81,7 @@ export const getIngredientsServer = () => {
         .then(checkResponse);
   };
   
-  export const forgotPasswordRequest = (data) => {
+  export const forgotPasswordRequest = (data : IUser) => {
     return fetch(`${BASE_URL}/password-reset`, {
       method: 'POST',
       headers: {
@@ -93,7 +94,7 @@ export const getIngredientsServer = () => {
         .then(checkResponse);
   };
   
-  export const resetPasswordRequest = (data) => {
+  export const resetPasswordRequest = (data : any) => {
     return fetch(`${BASE_URL}/password-reset/reset`, {
       method: 'POST',
       headers: {
@@ -119,13 +120,13 @@ export const getIngredientsServer = () => {
     }).then(checkResponse);
   };
   
-  export const fetchWithRefresh =  (url, options) => {
+  export const fetchWithRefresh = async (url : string, options : any) => {
     try {
-      const res =  fetch(url, options);
-      return  checkResponse(res);
-    } catch (err) {
+      const res = await fetch(url, options);
+      return await checkResponse(res);
+    } catch (err : any) {
       if (err.message === 'jwt expired') {
-        const refreshData =  refreshToken(); 
+        const refreshData = await refreshToken(); 
         if (!refreshData.success) {
           return Promise.reject(refreshData);
         }
@@ -133,7 +134,7 @@ export const getIngredientsServer = () => {
         localStorage.setItem('accessToken', refreshData.accessToken);
         options.headers.authorization = refreshData.accessToken;
         const res =  fetch(url, options); 
-        return  checkResponse(res);
+        return await checkResponse(res);
       } else {
         return Promise.reject(err);
       }
@@ -150,7 +151,7 @@ export const getIngredientsServer = () => {
     })
   };
   
-  export const updateUserProfileRequest = (data) => {
+  export const updateUserProfileRequest = (data : IUser) => {
     return fetchWithRefresh(`${BASE_URL}/auth/user`, {
       method: 'PATCH',
       headers: {

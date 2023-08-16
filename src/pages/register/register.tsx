@@ -6,9 +6,10 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useCallback, useState } from "react";
 import { registerUser } from "../../services/actions/user";
+import { ChangeEvent } from "react";
 
 export function RegisterPage() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export function RegisterPage() {
     name: "",
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 

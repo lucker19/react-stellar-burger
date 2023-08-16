@@ -1,5 +1,5 @@
 import styles from "./app.module.css";
-import AppHeader from "../app-header/app-header.jsx";
+import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import React from "react";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -16,15 +16,16 @@ import { LoginPage } from "../../pages/login/login";
 import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password";
 import { RegisterPage } from "../../pages/register/register";
 import { checkUserAuth } from "../../services/actions/user";
-import { HomePage } from "../../pages/home/home";
+import HomePage from "../../pages/home/home";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredients-detals/ingredients-details";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
-import { ProfilePage } from "../../pages/profile/profile";
+import ProfilePage from "../../pages/profile/profile";
 import { Ingredient } from "../../pages/ingredients/ingredient";
 import { ResetPasswordPage } from "../../pages/reset-password/reset-password";
+import { ReactElement } from "react";
 
-function App() {
+function App(): ReactElement {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

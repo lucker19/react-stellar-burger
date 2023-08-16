@@ -5,11 +5,27 @@ import PropTypes from "prop-types";
 import ModalOverlay from "../modal-overlay/modal-overaly";
 import ReactDOM from "react-dom";
 import { createPortal } from "react-dom";
+import { FC } from "react";
+import { useSelector, useDispatch } from "../../services/hooks";
+import { useNavigate } from "react-router";
+import { ReactElement } from "react";
 
-function Modal({ handleClose, children, header }) {
-  const modalRoot = document.getElementById("modals");
+type TModalProps = {
+  header?: string;
+  children: ReactElement;
+  handleClose: () => void;
+}
+
+const modalRoot = document.getElementById('modals') as HTMLElement;
+
+const Modal = ({ header, children, handleClose } : TModalProps)  =>{
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+
   React.useEffect(() => {
-    const closeOnEscape = (e) =>
+    const closeOnEscape = (e: KeyboardEvent) =>
       e.key === "Escape" ? handleClose() : null;
     document.body.addEventListener("keydown", closeOnEscape);
     return () => {
@@ -35,13 +51,3 @@ function Modal({ handleClose, children, header }) {
 }
 
 export default Modal;
-
-Modal.propTypes = {
-  isOpen: PropTypes.oneOfType([
-    PropTypes.bool.isRequired,
-    PropTypes.object.isRequired,
-  ]),
-  handleClose: PropTypes.func.isRequired,
-  header: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
-};

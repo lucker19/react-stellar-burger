@@ -1,32 +1,32 @@
 import React from "react";
 import styles from "./ingredients-details.module.css";
-import { ingredientPropType } from "../../utils/prop-types";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useParams } from "react-router";
+import { ReactElement } from "react";
 
-function IngredientDetails() {
+function IngredientDetails(): ReactElement {
   const location = useLocation();
   const background = location.state && location.state.background;
 
-  const getIngredientsList = (store) => store.ingredients.ingredients;
+  const getIngredientsList = (store : any) => store.ingredients.ingredients;
   const ingredientsList = useSelector(getIngredientsList);
   const { ingredientId } = useParams();
-  const ingredient = ingredientsList.find((item) => item._id === ingredientId);
+  const ingredient = ingredientsList.find((item : any) => item._id === ingredientId);
 
   return (
     <div
       className={background ? styles.modal_container : styles.main_container}
     >
-      <img className={styles.image} src={ingredient.image} alt="Ингредиент" />
-      <p className={"mt-4 text text_type_main-medium"}>{ingredient.name}</p>
+      <img className={styles.image} src={ingredient?.image} alt="Ингредиент" />
+      <p className={"mt-4 text text_type_main-medium"}>{ingredient?.name}</p>
       <ul className={`mt-8 ${styles.list}`}>
         <li className={styles.list_card}>
           <p className={"text text_type_main-default text_color_inactive"}>
             Калории,ккал
           </p>
           <p className={"text text_type_main-default text_color_inactive"}>
-            {ingredient.calories}
+            {ingredient?.calories}
           </p>
         </li>
         <li className={styles.list_card}>
@@ -34,7 +34,7 @@ function IngredientDetails() {
             Белки, г
           </p>
           <p className={"text text_type_main-default text_color_inactive"}>
-            {ingredient.proteins}
+            {ingredient?.proteins}
           </p>
         </li>
         <li className={styles.list_card}>
@@ -42,7 +42,7 @@ function IngredientDetails() {
             Жиры, г
           </p>
           <p className={"text text_type_main-default text_color_inactive"}>
-            {ingredient.fat}
+            {ingredient?.fat}
           </p>
         </li>
         <li className={styles.list_card}>
@@ -50,7 +50,7 @@ function IngredientDetails() {
             Углеводы, г
           </p>
           <p className={"text text_type_main-default text_color_inactive"}>
-            {ingredient.carbohydrates}
+            {ingredient?.carbohydrates}
           </p>
         </li>
       </ul>
@@ -60,6 +60,3 @@ function IngredientDetails() {
 
 export default IngredientDetails;
 
-IngredientDetails.propTypes = {
-  card: ingredientPropType,
-};

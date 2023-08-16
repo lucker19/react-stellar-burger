@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { logIn } from "../../services/actions/user";
 
 export function LoginPage() {
@@ -17,11 +17,11 @@ export function LoginPage() {
     password: "",
   });
 
-  const onChange = (e) => {
+  const onChange = (e : any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const login = (e) => {
+  const login = (e : any) => {
     e.preventDefault();
     if (form.email !== "" && form.password !== "") {
       dispatch(logIn(form));

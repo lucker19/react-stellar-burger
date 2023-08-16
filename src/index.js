@@ -17,7 +17,7 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-const store = configureStore({ reducer: rootReducer }, enhancer);
+export const store = configureStore({ reducer: rootReducer }, enhancer);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -4,23 +4,24 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "../../services/hooks";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import { forgotPassword } from "../../services/actions/user";
+import { ChangeEvent } from "react";
 
-export function ForgotPasswordPage() {
+export function ForgotPasswordPage(): ReactElement {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const isPasswordChanged = useSelector(
-    (store) => store.user.isPasswordChanged
+    (store: any) => store.user.isPasswordChanged
   );
 
   useEffect(() => {
