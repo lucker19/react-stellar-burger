@@ -121,7 +121,7 @@ export function BurgerConstructor(): ReactElement {
               isLocked={true}
               text={`${buns.name} (низ)`}
               price={buns.price}
-              thumbnail={buns.image}
+              thumbnail={buns.image}        
               extraClass={`ml-4 mt-4`}
             />
           ) : null}
