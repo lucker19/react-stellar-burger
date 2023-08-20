@@ -1,17 +1,23 @@
-import { GET_INGREDIENTS_SERVER, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS } from "../actions/ingredients";
+import { TAppActions } from "../../utils/prop-types";
+import {
+  GET_INGREDIENTS_SERVER,
+  GET_INGREDIENTS_FAILED,
+  GET_INGREDIENTS_SUCCESS,
+  TIngredientsActions,
+} from "../actions/ingredients";
 
 const initialState = {
   ingredients: [],
   ingredientsRequest: false,
-  ingredientsFailed: false
+  ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action : any) => {
-  switch(action.type) {
+export const ingredientsReducer = (state = initialState, action: any) => {
+  switch (action.type) {
     case GET_INGREDIENTS_SERVER: {
       return {
         ...state,
-        ingredientsRequest: true
+        ingredientsRequest: true,
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
@@ -19,7 +25,7 @@ export const ingredientsReducer = (state = initialState, action : any) => {
         ...state,
         ingredientsFailed: false,
         ingredientsRequest: false,
-        ingredients: action.ingredients
+        ingredients: action.ingredients,
       };
     }
     case GET_INGREDIENTS_FAILED: {
@@ -27,7 +33,7 @@ export const ingredientsReducer = (state = initialState, action : any) => {
         ...state,
         ingredients: [],
         ingredientsFailed: true,
-        ingredientsRequest: false
+        ingredientsRequest: false,
       };
     }
     default:

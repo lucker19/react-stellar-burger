@@ -1,7 +1,10 @@
 .container {
-  max-width: 1330px;
+  max-width: 1280px;
   width: 100%;
+  display: flex;
+  justify-content: flex-start;
   margin: 0 auto;
+  gap: 60px;
 }
 
 .profile {
@@ -35,21 +38,4 @@
 
 .text {
   opacity: 0.4;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-.buttons {
-  display: none;
-}
-
-.buttons_active {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 }

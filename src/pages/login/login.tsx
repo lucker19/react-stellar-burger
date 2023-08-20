@@ -4,10 +4,11 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { logIn } from "../../services/actions/user";
+import { ChangeEvent } from "react";
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -17,11 +18,11 @@ export function LoginPage() {
     password: "",
   });
 
-  const onChange = (e : any) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const login = (e : any) => {
+  const login = (e: SyntheticEvent) => {
     e.preventDefault();
     if (form.email !== "" && form.password !== "") {
       dispatch(logIn(form));

@@ -5,18 +5,18 @@ import { useParams } from "react-router";
 import IngredientDetails from "../../components/ingredients-detals/ingredients-details";
 import styles from "./ingredient.module.css";
 import { TIngredient } from "../../utils/prop-types";
+import { RootState } from "../../services/reducers";
 
 export const Ingredient: FC = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
-  const getIngredientsList = (store : any) => store.ingredients.ingredients;
+  const getIngredientsList = (store: RootState) =>
+    store.ingredients.ingredients;
   const ingredientsList = useSelector(getIngredientsList);
   const { ingredientId } = useParams();
-  const ingredient = ingredientsList.find((item: TIngredient) => item._id === ingredientId);
+  const ingredient = ingredientsList.find(
+    (item: TIngredient) => item._id === ingredientId
+  );
 
   if (!ingredient) {
     return null;

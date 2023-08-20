@@ -8,34 +8,33 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { logOut, updateUser } from "../../services/actions/user";
-import { ReactElement } from "react";
+import { ReactElement, ChangeEvent, SyntheticEvent } from "react";
+import { useLocation } from "react-router-dom";
+import ProfileNav from "../../components/profile-navigation/profile-nav";
+import { Outlet } from "react-router-dom";
+import { RootState } from "../../services/reducers";
 
 export default function ProfilePage(): ReactElement {
   const dispatch = useDispatch();
-  const getUser = (store : any) => store.user.user;
+  const getUser = (store: RootState) => store.user.user;
   const user = useSelector(getUser);
   const [form, setForm] = useState({
     email: user.email,
     password: "",
     name: user.name,
   });
-
-  const onChange = (e : any) => {
+  const { pathname } = useLocation();
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const onResetUserData = (e : any) => {
+  const onResetUserData = (e: SyntheticEvent) => {
     e.preventDefault();
     setForm({
       name: user.name,
       email: user.email,
       password: "",
     });
-  };
-
-  const onUpdateUser = (e : any) => {
-    e.preventDefault();
-    dispatch(updateUser(form));
   };
 
   const onLogout = () => {
@@ -48,8 +47,8 @@ export default function ProfilePage(): ReactElement {
         <div className={styles.links}>
           <NavLink
             to="/profile"
-            className={(current) =>
-              current.isActive
+            className={
+              pathname === "/profile"
                 ? `${styles.link} ${styles.current_link}`
                 : `${styles.link}`
             }
@@ -58,8 +57,8 @@ export default function ProfilePage(): ReactElement {
           </NavLink>
           <NavLink
             to="/profile/orders"
-            className={(current) =>
-              current.isActive
+            className={
+              pathname === "/profile/orders"
                 ? `${styles.link} ${styles.current_link}`
                 : `${styles.link}`
             }
@@ -69,65 +68,24 @@ export default function ProfilePage(): ReactElement {
           <li className={styles.link} onClick={onLogout}>
             <p className="text text_type_main-medium">Выход</p>
           </li>
-          <p
-            className={`pt-20 text text_type_main-default text_color_inactive ${styles.text}`}
-          >
-            В этом разделе вы можете изменить свои персональные данные
-          </p>
-        </div>
-        <form className={styles.form} onSubmit={onUpdateUser}>
-          <Input
-            type={"text"}
-            placeholder={"Имя"}
-            onChange={onChange}
-            icon={"EditIcon"}
-            value={form.name}
-            name={"name"}
-            error={false}
-            errorText={"Ошибка"}
-            size={"default"}
-          />
-          <Input
-            placeholder={"Логин"}
-            onChange={onChange}
-            value={form.email}
-            name="email"
-            icon={"EditIcon"}
-          />
-          <Input
-            type={"password"}
-            placeholder={"Пароль"}
-            onChange={onChange}
-            icon={"EditIcon"}
-            value={form.password}
-            name="password"
-            error={false}
-            errorText={"Ошибка"}
-            size={"default"}
-          />
-          <div
-            className={
-              form.name === user.name &&
-              form.email === user.email &&
-              form.password === ""
-                ? `${styles.buttons}`
-                : `${styles.buttons_active} mt-6`
-            }
-          >
-            <Button
-              htmlType="reset"
-              type="secondary"
-              size="large"
-              onClick={onResetUserData}
+          {pathname === "/profile" ? (
+            <p
+              className={`pt-20 text text_type_main-default text_color_inactive ${styles.text}`}
             >
-              Отмена
-            </Button>
-            <Button htmlType="submit" type="primary" size="medium">
-              Сохранить
-            </Button>
-          </div>
-        </form>
+              В этом разделе вы можете изменить свои персональные данные
+            </p>
+          ) : pathname === "/profile/orders" ? (
+            <p
+              className={`pt-20 text text_type_main-default text_color_inactive ${styles.text}`}
+            >
+              В этом разделе вы можете просмотреть свою историю заказов
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
+      <Outlet />
     </div>
   );
 }

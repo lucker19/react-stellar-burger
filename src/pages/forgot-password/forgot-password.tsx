@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "../../services/hooks";
 import { ReactElement, useCallback, useEffect, useState } from "react";
 import { forgotPassword } from "../../services/actions/user";
 import { ChangeEvent } from "react";
+import { RootState } from "../../services/reducers";
 
 export function ForgotPasswordPage(): ReactElement {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export function ForgotPasswordPage(): ReactElement {
   };
 
   const isPasswordChanged = useSelector(
-    (store: any) => store.user.isPasswordChanged
+    (store: RootState) => store.user.isPasswordChanged
   );
 
   useEffect(() => {

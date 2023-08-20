@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "../../services/hooks";
 import { useCallback, useEffect, useState } from "react";
 import { resetPassword } from "../../services/actions/user";
 import { ChangeEvent } from "react";
-import { IUser } from "../../utils/prop-types";
 import { RootState } from "../../services/reducers";
 
 export function ResetPasswordPage() {
@@ -26,10 +25,7 @@ export function ResetPasswordPage() {
 
   const isPasswordChanged = useSelector(
     (store: RootState) => store.user.isPasswordChanged
-  )
-
-   
-
+  );
 
   useEffect(() => {
     if (!isPasswordChanged) {

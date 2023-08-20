@@ -1,0 +1,99 @@
+.container_modal {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto 40px;
+  max-width: 640px;
+  width: 100%;
+  align-items: center;
+}
+
+.container_window {
+  display: flex;
+  flex-direction: column;
+  margin: 122px auto 0;
+  max-width: 640px;
+  width: 100%;
+  align-items: center;
+}
+
+.status {
+  align-self: flex-start;
+  color: #0cc;
+}
+
+.info {
+  align-self: flex-start;
+}
+
+.ingredients {
+  list-style: none;
+  padding: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 312px;
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  padding-bottom: 16px;
+  justify-content: space-between;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  max-width: 494px;
+  width: 100%;
+}
+
+.image_background {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #801ab2, #4c4cff);
+}
+
+.image_container {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #000000;
+}
+
+.image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  transform: scale(0.9);
+}
+
+.name {
+  max-width: 320px;
+  width: 100%;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.order_date_price {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order_date {
+  display: flex;
+  gap: 8px;
+}
+
+.order_price {
+  display: flex;
+  align-items: center;
+}
