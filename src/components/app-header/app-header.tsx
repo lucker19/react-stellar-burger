@@ -28,13 +28,13 @@ function AppHeader() {
         </NavLink>
 
         <NavLink
-          to={{ pathname: `/orders` }}
+          to={{ pathname: `/feed` }}
           className={`pt-4 pr-5 pb-4 pl-5 ${styles.menu_item}`}
         >
-          <ListIcon type={pathname === "/orders" ? "primary" : "secondary"} />
+          <ListIcon type={pathname === "/feed" ? "primary" : "secondary"} />
           <p
             className={`text text_type_main-small ${
-              pathname === "/orders"
+              pathname === "/feed"
                 ? "text_color_primary"
                 : "text_color_inactive"
             }`}
@@ -43,9 +43,9 @@ function AppHeader() {
           </p>
         </NavLink>
       </nav>
-      <div className={styles.logo}>
+      <NavLink className={styles.logo} to={{ pathname: `/` }}>
         <Logo />
-      </div>
+      </NavLink>
       <div>
         <NavLink
           to={{ pathname: `/profile` }}

@@ -1,0 +1,149 @@
+.card_feed {
+  list-style: none;
+  max-width: 584px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.card_orders {
+  list-style: none;
+  max-width: 844px;
+  width: 100%;
+}
+
+.link_feed {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  background-color: #1c1c21;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.04), 0 0 2px 0 rgba(0, 0, 0, 0.06),
+    0 4px 8px 0 rgba(0, 0, 0, 0.04);
+}
+
+.link_orders {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 40px;
+  background-color: #1c1c21;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.04), 0 0 2px 0 rgba(0, 0, 0, 0.06),
+    0 4px 8px 0 rgba(0, 0, 0, 0.04);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.number {
+  color: #f2f2f3;
+}
+
+.date {
+  width: 418px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.name {
+  color: #f2f2f3;
+}
+
+.status_done {
+  color: #0cc;
+}
+
+.status_pending {
+  color: #f2f2f3;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+
+.info_ingredients {
+  display: flex;
+  padding: 0;
+}
+
+.image_background {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #801ab2, #4c4cff);
+  margin-left: -15px;
+  position: relative;
+}
+
+.image_background:nth-of-type(1) {
+  z-index: 7;
+}
+
+.image_background:nth-of-type(2) {
+  z-index: 6;
+}
+
+.image_background:nth-of-type(3) {
+  z-index: 5;
+}
+
+.image_background:nth-of-type(4) {
+  z-index: 4;
+}
+
+.image_background:nth-of-type(5) {
+  z-index: 3;
+}
+
+.image_background:nth-of-type(6) {
+  z-index: 1;
+  position: relative;
+}
+
+.image_background:nth-of-type(6)::before {
+  content: "";
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #1c1c21;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+.image_container {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #000000;
+  z-index: -1;
+}
+
+.image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  transform: scale(0.9);
+  z-index: -999;
+}
+
+.counter {
+  z-index: 2;
+  transform: translate(-43px, 20px);
+  color: #f2f2f3;
+}
+
+.price {
+  display: flex;
+  color: #f2f2f3;
+  gap: 8px;
+}

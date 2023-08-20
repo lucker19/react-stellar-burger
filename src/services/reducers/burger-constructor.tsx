@@ -1,9 +1,9 @@
-import { any } from "prop-types";
-import { TIngredient,TIngredients } from "../../utils/prop-types";
-import { 
+import { TIngredient, TIngredients } from "../../utils/prop-types";
+import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   SORT_INGREDIENTS,
+  DELETE_ALL_INGREDIENTS,
 } from "../actions/burger-constructor";
 import { TConstructorBurgerAction } from "../actions/burger-constructor";
 
@@ -12,12 +12,15 @@ interface IConstructorBurgerState {
   buns: null | TIngredient;
 }
 
-const initialState: IConstructorBurgerState  = {
+const initialState: IConstructorBurgerState = {
   buns: null,
   fillings: [],
 };
 
-export const burgerConstructorReducer = (state: IConstructorBurgerState = initialState, action: TConstructorBurgerAction) : IConstructorBurgerState  => {
+export const burgerConstructorReducer = (
+  state: IConstructorBurgerState = initialState,
+  action: TConstructorBurgerAction
+): IConstructorBurgerState => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       if (action.payload.type === "bun") {
@@ -28,22 +31,30 @@ export const burgerConstructorReducer = (state: IConstructorBurgerState = initia
       } else {
         return {
           ...state,
-          fillings: [ ...state.fillings, action.payload ]
+          fillings: [...state.fillings, action.payload],
         };
       }
     }
     case DELETE_INGREDIENT: {
       return {
         ...state,
-        fillings: state.fillings.filter((item: any)  => item.key !== action.payload)
-    }
+        fillings: state.fillings.filter(
+          (item) => item.key !== action.payload
+        ),
+      };
     }
     case SORT_INGREDIENTS: {
       const main = [...state.fillings];
       main.splice(action.toIndex, 0, main.splice(action.fromIndex, 1)[0]);
       return {
         ...state,
-        fillings: [...main]
+        fillings: [...main],
+      };
+    }
+    case DELETE_ALL_INGREDIENTS: {
+      return {
+        ...state,
+        ...initialState,
       };
     }
     default:

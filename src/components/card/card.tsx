@@ -7,18 +7,19 @@ import {
 import { useSelector, useDispatch } from "../../services/hooks";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
-import { TIngredient} from "../../utils/prop-types";
+import { TIngredient } from "../../utils/prop-types";
 import { FC } from "react";
+import { RootState } from "../../services/reducers";
 
 interface IIngredientInterface {
-  card: TIngredient
+  card: TIngredient;
 }
 
-const Card : FC<IIngredientInterface> = ({ card }) => {
+const Card: FC<IIngredientInterface> = ({ card }) => {
   const location = useLocation();
   const ingredientId = card["_id"];
 
-  const getIngredients = (store : any) => store.burgerConstructor;
+  const getIngredients = (store: RootState) => store.burgerConstructor;
   const { buns, fillings } = useSelector(getIngredients);
 
   const [counter, setCounter] = useState(0);
@@ -27,7 +28,9 @@ const Card : FC<IIngredientInterface> = ({ card }) => {
     if (buns && card.type === "bun" && card._id === buns._id) {
       setCounter(2);
     } else {
-      setCounter(fillings?.filter((item : any) => item._id === card._id).length);
+      setCounter(
+        fillings?.filter((item) => item._id === card._id).length
+      );
     }
   }, [buns, fillings, card._id, card.type]);
 
@@ -44,22 +47,20 @@ const Card : FC<IIngredientInterface> = ({ card }) => {
         state={{ background: location }}
         className={styles.card}
       >
-       {!!counter && (
-         <Counter count={counter} size="default" extraClass={`m-1`} />
-       )}
-       <img className={styles.img} src={card.image} alt={card.name} />
-       <div className={styles.price}>
-         <p className={`text text_type_digits-default pb-1 pt-1`}>
-           {card.price}
-         </p>
-         <CurrencyIcon type="primary" />
-       </div>
-       <p className={`text text_type_main-default pt-1`}>{card.name}</p>
+        {!!counter && (
+          <Counter count={counter} size="default" extraClass={`m-1`} />
+        )}
+        <img className={styles.img} src={card.image} alt={card.name} />
+        <div className={styles.price}>
+          <p className={`text text_type_digits-default pb-1 pt-1`}>
+            {card.price}
+          </p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p className={`text text_type_main-default pt-1`}>{card.name}</p>
       </Link>
     </li>
   );
 };
-
-
 
 export default Card;

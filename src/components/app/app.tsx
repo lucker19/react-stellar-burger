@@ -6,7 +6,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { getIngredientsServer } from "../../utils/api";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import { getIngredients } from "../../services/actions/ingredients";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -24,6 +24,10 @@ import ProfilePage from "../../pages/profile/profile";
 import { Ingredient } from "../../pages/ingredients/ingredient";
 import { ResetPasswordPage } from "../../pages/reset-password/reset-password";
 import { ReactElement } from "react";
+import FeedPage from "../../pages/feed/feed";
+import FeedOrderPage from "../../pages/feed-order/feed-order";
+import ProfileNav from "../profile-navigation/profile-nav";
+import { ProfileOrders } from "../profile-orders/profile-orders";
 
 function App(): ReactElement {
   const dispatch = useDispatch();
@@ -35,6 +39,10 @@ function App(): ReactElement {
     dispatch(checkUserAuth());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
+
   const handleModalClose = () => {
     navigate(-1);
   };
@@ -44,11 +52,13 @@ function App(): ReactElement {
       <div className={styles.app}>
         <AppHeader />
         <Routes location={background || location}>
-          <Route path={"/"} element={<HomePage />} />
+          <Route path={`/`} element={<HomePage />} />
+          <Route path={"/feed"} element={<FeedPage />} />
           <Route
-            path={"/login"}
+            path={`/login`}
             element={<OnlyUnAuth component={<LoginPage />} />}
           />
+
           <Route
             path={"/register"}
             element={<OnlyUnAuth component={<RegisterPage />} />}
@@ -57,6 +67,7 @@ function App(): ReactElement {
             path={"/forgot-password"}
             element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
           />
+
           <Route
             path={"/reset-password"}
             element={<OnlyUnAuth component={<ResetPasswordPage />} />}
@@ -64,7 +75,13 @@ function App(): ReactElement {
           <Route
             path={"/profile"}
             element={<OnlyAuth component={<ProfilePage />} />}
-          />
+          >
+            <Route index element={<OnlyAuth component={<ProfileNav />} />} />
+            <Route
+              path={"/profile/orders"}
+              element={<OnlyAuth component={<ProfileOrders />} />}
+            />
+          </Route>
           <Route path={"/ingredients/:ingredientId"} element={<Ingredient />} />
           <Route
             path={"/ingredients/:ingredientId"}
@@ -81,6 +98,22 @@ function App(): ReactElement {
                   header={"Детали ингредиента"}
                 >
                   <IngredientDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path="/feed/:id"
+              element={
+                <Modal handleClose={handleModalClose}>
+                  <FeedOrderPage popup={true} />
+                </Modal>
+              }
+            />
+            <Route
+              path="/profile/orders/:id"
+              element={
+                <Modal handleClose={handleModalClose}>
+                  <FeedOrderPage popup={true} />
                 </Modal>
               }
             />

@@ -2,9 +2,10 @@ import styles from "./order-details.module.css";
 import React, { FC } from "react";
 import { useSelector, useDispatch } from "../../services/hooks";
 import order_accepted from "../../images/order_accepted.svg";
+import { RootState } from "../../services/reducers";
 
 const OrderDetails: FC = () => {
-  const getOrderNumber = (store : any) => store.order.order;
+  const getOrderNumber = (store: RootState) => store.order.order;
   const orderNumber = useSelector(getOrderNumber);
   return (
     <div className={styles.container}>
@@ -19,6 +20,6 @@ const OrderDetails: FC = () => {
       </p>
     </div>
   );
-}
+};
 
 export default OrderDetails;

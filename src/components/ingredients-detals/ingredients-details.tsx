@@ -4,15 +4,20 @@ import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { useParams } from "react-router";
 import { ReactElement } from "react";
+import { RootState } from "../../services/reducers";
+import { TIngredient } from "../../utils/prop-types";
 
 function IngredientDetails(): ReactElement {
   const location = useLocation();
   const background = location.state && location.state.background;
 
-  const getIngredientsList = (store : any) => store.ingredients.ingredients;
+  const getIngredientsList = (store: RootState) =>
+    store.ingredients.ingredients;
   const ingredientsList = useSelector(getIngredientsList);
   const { ingredientId } = useParams();
-  const ingredient = ingredientsList.find((item : any) => item._id === ingredientId);
+  const ingredient = ingredientsList.find(
+    (item: TIngredient) => item._id === ingredientId
+  );
 
   return (
     <div
@@ -59,4 +64,3 @@ function IngredientDetails(): ReactElement {
 }
 
 export default IngredientDetails;
-

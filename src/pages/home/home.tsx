@@ -9,10 +9,10 @@ import { ReactElement } from "react";
 export default function HomePage(): ReactElement {
   return (
     <main className={styles.main}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
+      <DndProvider backend={HTML5Backend}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </DndProvider>
     </main>
   );
 }

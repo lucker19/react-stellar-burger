@@ -1,18 +1,19 @@
 import { useSelector, useDispatch } from "../../services/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import { RootState } from "../../services/reducers";
 
-type Tprotected = {
-  component: any
-  onlyUnAuth: any
-}
+type TProtected = {
+  component: any;
+  onlyUnAuth: any;
+};
 
-const Protected = ({ onlyUnAuth = false, component }: Tprotected) => {
-  const getAuthorized = (store : any) => store.user.isAuthChecked;
+const Protected = ({ onlyUnAuth = false, component }: TProtected) => {
+  const getAuthorized = (store: RootState) => store.user.isAuthChecked;
   const isAuthChecked = useSelector(getAuthorized);
   const location = useLocation();
 
-  const getUserData = (store : any) => store.user.user;
+  const getUserData = (store: RootState) => store.user.user;
   const user = useSelector(getUserData);
 
   if (!isAuthChecked) {
@@ -32,7 +33,7 @@ const Protected = ({ onlyUnAuth = false, component }: Tprotected) => {
 };
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component } : any) => (
+export const OnlyUnAuth = ({ component }: any) => (
   <Protected onlyUnAuth={true} component={component} />
 );
 

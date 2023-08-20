@@ -14,15 +14,13 @@ type TModalProps = {
   header?: string;
   children: ReactElement;
   handleClose: () => void;
-}
+};
 
-const modalRoot = document.getElementById('modals') as HTMLElement;
+const modalRoot = document.getElementById("modals") as HTMLElement;
 
-const Modal = ({ header, children, handleClose } : TModalProps)  =>{
+const Modal = ({ header, children, handleClose }: TModalProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-
 
   React.useEffect(() => {
     const closeOnEscape = (e: KeyboardEvent) =>
@@ -48,6 +46,6 @@ const Modal = ({ header, children, handleClose } : TModalProps)  =>{
     </div>,
     modalRoot
   );
-}
+};
 
 export default Modal;

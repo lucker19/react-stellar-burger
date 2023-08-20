@@ -17,9 +17,12 @@ import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { TIngredient, TIngredientConstructor } from "../../utils/prop-types";
-import { TIngredientsMap, TIngredients } from "../../utils/prop-types";
-import { Ingredient } from "../../pages/ingredients/ingredient";
-
+import {
+  createOrderNumber,
+  DELETE_ORDER_NUMBER,
+} from "../../services/actions/order";
+import Loader from "../loader/loader";
+import { RootState } from "../../services/reducers";
 type TDropItem = {
   element: TIngredientConstructor;
   _id: string;
@@ -31,19 +34,16 @@ type TDropItem = {
 export function BurgerConstructor(): ReactElement {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
-  const getBuns = (store: any) => store.burgerConstructor.buns;
-  const buns: any = useSelector(getBuns);
+  const getBuns = (store: RootState) => store.burgerConstructor.buns;
+  const buns = useSelector(getBuns);
 
-  const getFillings = (store: any) => store.burgerConstructor.fillings;
-  const fillings: any = useSelector(getFillings);
+  const getFillings = (store: RootState) => store.burgerConstructor.fillings;
+  const fillings = useSelector(getFillings);
 
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
-  const getUserData = (store: any) => store.user.user;
+  const getUserData = (store: RootState) => store.user.user;
   const user = useSelector(getUserData);
 
   const openModal = () => {
@@ -51,22 +51,27 @@ export function BurgerConstructor(): ReactElement {
     setModalIsOpen(true);
   };
 
+  const getOrderSuccess = (store: RootState) =>
+    store.order.createOrderNumberSuccess;
+  const orderSuccess = useSelector(getOrderSuccess);
   const createOrder = () => {
-    const ingredientsId = fillings?.map((item: TIngredientConstructor) => item._id);
+    const ingredientsId = fillings.map((item) => item._id);
     if (!user) {
       navigate("/login");
       return;
     }
     if (buns) {
-      ingredientsId?.push(buns._id);
+      ingredientsId.push(buns._id);
+      ingredientsId.push(buns._id);
     }
-    if (ingredientsId?.length > 0) {
-      dispatch(getOrder(ingredientsId));
+    if (ingredientsId.length > 0) {
+      dispatch(createOrderNumber(ingredientsId));
     }
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
+    dispatch({ type: DELETE_ORDER_NUMBER });
   };
 
   const [, dropRef] = useDrop({
@@ -82,7 +87,7 @@ export function BurgerConstructor(): ReactElement {
   const totalPrice = React.useMemo(
     () =>
       fillings.reduce(
-        (total: number, item: TIngredientConstructor) => (total += item.price),
+        (total, item) => (total += item.price),
         buns ? buns.price * 2 : 0
       ),
     [buns, fillings]
@@ -105,7 +110,7 @@ export function BurgerConstructor(): ReactElement {
         </div>
 
         <ul className={`custom-scroll ${styles.constructor_list}`}>
-          {fillings.map((item: TIngredientConstructor, index: number) => {
+          {fillings.map((item, index) => {
             return <MainIngredient key={item.uuid} index={index} item={item} />;
           })}
         </ul>
@@ -141,7 +146,7 @@ export function BurgerConstructor(): ReactElement {
       </div>
       {modalIsOpen && (
         <Modal handleClose={closeModal} header={""}>
-          <OrderDetails />
+          {orderSuccess ? <OrderDetails /> : <Loader />}
         </Modal>
       )}
     </section>
