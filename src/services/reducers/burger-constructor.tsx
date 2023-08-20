@@ -12,7 +12,7 @@ interface IConstructorBurgerState {
   buns: null | TIngredient;
 }
 
-const initialState: IConstructorBurgerState = {
+export const initialState: IConstructorBurgerState = {
   buns: null,
   fillings: [],
 };

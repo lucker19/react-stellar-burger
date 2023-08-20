@@ -2,7 +2,6 @@ import thunk from "redux-thunk";
 import { rootReducer } from "../services/reducers/index";
 import { socketMiddleware } from "./middleware";
 import { wsUrl, userOrdersUrl } from "./api";
-import { wsActions } from "../services/actions/socket";
 import { configureStore } from "@reduxjs/toolkit";
 import {
   WS_ORDER_CONNECT,

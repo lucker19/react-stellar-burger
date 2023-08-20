@@ -13,7 +13,7 @@ interface IOrdersFeedState {
   error: "";
 }
 
-const initialState: IOrdersFeedState = {
+export const initialState: IOrdersFeedState = {
   wsConnected: false,
   orders: [],
   error: "",

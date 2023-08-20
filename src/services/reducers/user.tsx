@@ -22,7 +22,7 @@ import {
   SET_USER,
 } from "../actions/user";
 
-const initialState = {
+export const initialState = {
   user: null,
   isAuthChecked: false,
   getUserFailed: false,

@@ -36,7 +36,7 @@ const Modal = ({ header, children, handleClose }: TModalProps) => {
       <div className={styles.container}>
         <div className={styles.header}>
           <p className={"text text_type_main-large"}>{header}</p>
-          <button className={styles.close_button}>
+          <button className={styles.close_button}data-cy="modal-close-icon">
             <CloseIcon type="primary" onClick={handleClose} />
           </button>
         </div>

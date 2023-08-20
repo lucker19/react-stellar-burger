@@ -21,7 +21,7 @@ const MainIngredient = ({ item, index }: TMainProps): ReactElement => {
   const dispatch = useDispatch();
   const ref = useRef(null);
 
-  const onDelete = (item: TIngredient) => {
+  const onDelete = (item: TIngredient):void => {
     dispatch(deleteIngredient(item));
   };
 

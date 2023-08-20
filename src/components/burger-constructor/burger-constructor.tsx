@@ -21,7 +21,6 @@ import {
   createOrderNumber,
   DELETE_ORDER_NUMBER,
 } from "../../services/actions/order";
-import Loader from "../loader/loader";
 import { RootState } from "../../services/reducers";
 type TDropItem = {
   element: TIngredientConstructor;
@@ -76,7 +75,7 @@ export function BurgerConstructor(): ReactElement {
 
   const [, dropRef] = useDrop({
     accept: "ingredient",
-    drop(item: TDropItem) {
+    drop(item: TIngredient) {
       if (buns && buns._id === item._id) return;
       const ingredient = Object.assign({}, item);
       ingredient.uuid = uuidv4();
@@ -94,7 +93,7 @@ export function BurgerConstructor(): ReactElement {
   );
 
   return (
-    <section className={styles.constructor_box} ref={dropRef}>
+    <section className={styles.constructor_box} ref={dropRef} data-cy="ingredients-constructor">
       <div className={`mt-15 ${styles.constructor_container}`}>
         <div className={styles.info}>
           {buns ? (
@@ -135,18 +134,22 @@ export function BurgerConstructor(): ReactElement {
           </p>
           <CurrencyIcon type="primary" />
         </div>
+        
         <Button
           htmlType="button"
           type="primary"
           size="large"
           onClick={openModal}
+          data-cy="create-order-btn"
         >
           Оформить заказ
         </Button>
+        
+
       </div>
       {modalIsOpen && (
         <Modal handleClose={closeModal} header={""}>
-          {orderSuccess ? <OrderDetails /> : <Loader />}
+            <OrderDetails />
         </Modal>
       )}
     </section>

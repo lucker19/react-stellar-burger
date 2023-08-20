@@ -1,11 +1,16 @@
 import { SyntheticEvent } from "react";
 import { TAppActions } from "./prop-types";
+import { TWsActions } from "../services/actions/socket";
+import { Middleware } from "redux";
+import { MiddlewareAPI } from "redux";
+import { AppDispatch } from "./prop-types";
+import { RootState } from "../services/reducers";
 
-export const socketMiddleware = (wsActions: any) => {
-  return (store: any) => {
-    let socket: any = null;
+export const socketMiddleware = (wsActions: any): Middleware => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+    let socket: WebSocket | null = null;
 
-    return (next: any) => (action: any) => {
+    return (next) => (action) => {
       const { dispatch } = store;
       const { type } = action;
       const {

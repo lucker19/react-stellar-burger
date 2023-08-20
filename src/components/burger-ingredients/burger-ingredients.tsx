@@ -68,7 +68,9 @@ const BurgerIngredients: FC = () => {
   };
 
   return (
-    <section className={styles.ingredients_box}>
+    <section className={styles.ingredients_box}
+    data-cy="ingredients-container"
+    >
       <h1 className="text text_type_main-large">Собери бургер</h1>
       <div className={`mt-5 mb-10`} style={{ display: "flex" }}>
         <Tab
@@ -94,11 +96,11 @@ const BurgerIngredients: FC = () => {
         </Tab>
       </div>
 
-      <ul className={`${styles.ingredients} custom-scroll`}>
+      <ul className={`${styles.ingredients} custom-scroll`}  >
         <h3 className={`mb-6 text text_type_main-medium`} ref={bunRef}>
           Булки
         </h3>
-        <ul className={`pr-2 pl-4 ${styles.card}`}>
+        <ul className={`pr-2 pl-4 ${styles.card}`} >
           {bun.map((item: TIngredient) => (
             <Card card={item} key={item._id} />
           ))}
@@ -106,15 +108,15 @@ const BurgerIngredients: FC = () => {
         <h3 className={`mt-10 mb-6 text text_type_main-medium`} ref={saucesRef}>
           Соусы
         </h3>
-        <ul className={`pr-2 pl-4 ${styles.card}`}>
+        <ul className={`pr-2 pl-4 ${styles.card}`} >
           {sauces.map((item: TIngredient) => (
             <Card card={item} key={item._id} />
           ))}
         </ul>
-        <h3 className={`mt-10 mb-6 text text_type_main-medium`} ref={mainRef}>
+        <h3 className={`mt-10 mb-6 text text_type_main-medium`} ref={mainRef} >
           Начинки
         </h3>
-        <ul className={`pr-2 pl-4 ${styles.card}`}>
+        <ul className={`pr-2 pl-4 ${styles.card}`}  >
           {main.map((item: TIngredient) => (
             <Card card={item} key={item._id} />
           ))}

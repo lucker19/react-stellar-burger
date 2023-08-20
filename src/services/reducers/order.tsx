@@ -9,7 +9,7 @@ import {
 } from "../actions/order";
 import { TAppActions } from "../../utils/prop-types";
 
-const initialState = {
+export const initialState = {
   order: null,
   orderData: {},
   createOrderNumberRequest: false,

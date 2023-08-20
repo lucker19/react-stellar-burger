@@ -29,9 +29,11 @@ export type TIngredient = {
   key?: any;
   id?: string
 };
-export type TIngredientConstructor = TIngredient & {
-  id: string;
-};
+
+export type TSelectedIngredient = TIngredient & {
+  id?: string;
+}
+
 
 export interface IUser {
   name: string;
@@ -41,7 +43,7 @@ export interface IUser {
 export interface IOrder {
   number: number;
 }
-
+export type TIngredientConstructor = TIngredient & { key: string };
 export type TIngredients = Array<TIngredient>;
 
 export type TIngredientsMap = {
@@ -56,7 +58,7 @@ export type TAppActions =
   | TIngredientsActions
   | TWsActions
   | TOredersFEedActions
-  | TWsProfileOrdersActions;
+  | TWsProfileOrdersActions
 export type TConstMiddlewareActions = IConstWsActions;
 
 export type AppThunk<ReturnType = void> = ActionCreator<

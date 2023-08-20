@@ -4,7 +4,7 @@ import {
   TIngredientDetailsActions,
 } from "../actions/ingredients-details";
 
-const initialState = {
+export const initialState = {
   ingredientDetails: null,
 };
 
