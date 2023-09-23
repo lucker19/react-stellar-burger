@@ -21,6 +21,7 @@ type TorderCardProps = {
   _id?: string;
   status?: string;
   order: TOrder;
+  uuid?:string
 };
 
 const OrderCard = (props: TorderCardProps) => {

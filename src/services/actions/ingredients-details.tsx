@@ -13,14 +13,11 @@ export const deleteIngredientsDetails = () => ({
 
 interface IAddIngredientAction {
   readonly type: typeof ADD_INGREDIENTS_DETAILS;
-  payload: any;
-
-  readonly ingredient: TIngredient;
+  readonly payload: TIngredient;
 }
 
 interface IDeleteIngredientAction {
   readonly type: typeof DELETE_INGREDIENTS_DETAILS;
-  payload: string
 }
 
 export type TIngredientDetailsActions =

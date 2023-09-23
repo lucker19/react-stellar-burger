@@ -5,8 +5,11 @@ import { Middleware } from "redux";
 import { MiddlewareAPI } from "redux";
 import { AppDispatch } from "./prop-types";
 import { RootState } from "../services/reducers";
+import { useEffect } from "react";
 
-export const socketMiddleware = (wsActions: any): Middleware => {
+
+
+export const socketMiddleware = (wsActions: {[key:string]: any}): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 

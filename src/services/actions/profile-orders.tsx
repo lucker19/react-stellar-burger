@@ -8,13 +8,13 @@ export const WS_PROFILE_ORDERS_ERROR = "WS_PROFILE_ORDERS_ERROR";
 
 export interface IWsProfileOrdersConnect {
   readonly type: typeof WS_PROFILE_ORDERS_CONNECT;
+  readonly payload: string;
 }
 export interface IWsProfileOrdersDisconnect {
   readonly type: typeof WS_PROFILE_ORDERS_DISCONNECT;
 }
 export interface IWsProfileOrdersConnecting {
   readonly type: typeof WS_PROFILE_ORDERS_CONNECTING;
-  payload: string;
 }
 export interface IWsProfileOrdersOpen {
   readonly type: typeof WS_PROFILE_ORDERS_OPEN;
@@ -24,11 +24,15 @@ export interface IWsProfileOrdersClose {
 }
 export interface IWsProfileOrdersMessage {
   readonly type: typeof WS_PROFILE_ORDERS_MESSAGE;
-  payload: string;
+  readonly payload: {
+    success: false,
+    orders: [],
+    total: 0,
+    totalToday: 0
+  };
 }
 export interface IWsProfileOrdersError {
   readonly type: typeof WS_PROFILE_ORDERS_ERROR;
-  payload: string;
 }
 
 export type TWsProfileOrdersActions =
@@ -40,11 +44,11 @@ export type TWsProfileOrdersActions =
   | IWsProfileOrdersDisconnect
   | IWsProfileOrdersConnect;
 
-export const wsProfileOrdersConnect = (url: string) => ({
+export const wsProfileOrdersConnect = (url: string): IWsProfileOrdersConnect => ({
   type: WS_PROFILE_ORDERS_CONNECT,
   payload: url,
 });
 
-export const wsProfileOrdersDisconnect = () => ({
+export const wsProfileOrdersDisconnect = (): IWsProfileOrdersDisconnect => ({
   type: WS_PROFILE_ORDERS_DISCONNECT,
 });

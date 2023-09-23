@@ -4,7 +4,7 @@ import * as selectors from "./selectors"
 describe('burger constructor page', function () {
   beforeEach(() => {
     cy.viewport(1920, 1080)
-    cy.visit('http://localhost:3000');
+    cy.visit(selectors.localHost);
     cy.contains('Собери бургер');
   })
 

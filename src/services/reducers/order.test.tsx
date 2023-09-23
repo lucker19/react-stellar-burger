@@ -1,69 +1,113 @@
-import { orderReducer,initialState } from "./order";
+import { Reducer } from 'redux';
 import {
-    CREATE_ORDER_NUMBER_FAILED,
-    CREATE_ORDER_NUMBER_SERVER,
-    CREATE_ORDER_NUMBER_SUCCESS,
-    GET_ORDER_FAILED,
-    GET_ORDER_SUCCESS,
-    GET_ORDER_SERVER,
-    DELETE_ORDER_NUMBER,
-  } from "../actions/order";
+  CREATE_ORDER_NUMBER_SERVER,
+  CREATE_ORDER_NUMBER_SUCCESS,
+  CREATE_ORDER_NUMBER_FAILED,
+  GET_ORDER_SERVER,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
+  DELETE_ORDER_NUMBER,
+} from '../actions/order';
+import {  TOrderActions } from '../actions/order';
+import {  orderReducer, initialState } from './order';
 
-  describe('order reducer', () => {
-    it('should return initial state', () => {
-      expect(orderReducer(initialState, {})).toEqual(initialState)
-    })
-  
-    it('should handle GET_ORDER_SERVER', () => {
-      const action = {
-        type: GET_ORDER_SERVER,
-      }
-      expect(orderReducer(initialState, action)).toEqual(
-        {
-          ...initialState,
-          orderRequest: true,
-        }
-      )
-    })
-  
-    it('should handle GET_ORDER_SUCCESS', () => {
-      const action = {
-        type: GET_ORDER_SUCCESS,
-        payload: 12345
-      }
-      expect(orderReducer(initialState, action)).toEqual(
-        {
-          ...initialState,
-          orderNumber: 12345,
-          orderRequest: false,
-          orderFailed: false
-        }
-      )
-    })
-  
-    it('should handle GET_ORDER_FAILED', () => {
-      const action = {
-        type: GET_ORDER_FAILED,
-      }
-      expect(orderReducer(initialState, action)).toEqual(
-        {
-          ...initialState,
-          orderRequest: false,
-          orderFailed: true
-        }
-      )
-    })
-  
-    it('should handle DELETE_ORDER_NUMBER', () => {
-      const action = {
-        type: DELETE_ORDER_NUMBER,
-      }
-      expect(orderReducer(initialState, action)).toEqual(
-        {
-          ...initialState,
-          orderNumber: null,
-        }
-      )
-    })
-  
-  })
+describe('orderReducer', () => {
+  it('should return the initial state by default', () => {
+    expect(orderReducer(undefined, {} as TOrderActions)).toEqual(initialState);
+  });
+
+  it('should handle CREATE_ORDER_NUMBER_SERVER', () => {
+    const action: any = {
+      type: CREATE_ORDER_NUMBER_SERVER,
+    };
+
+    expect(orderReducer(initialState, action)).toEqual({
+      ...initialState,
+      createOrderNumberRequest: true,
+    });
+  });
+
+
+  it('should handle CREATE_ORDER_NUMBER_SUCCESS', () => {
+    const exampleOrder = {
+      id: '123',
+      content: 'Test Order',
+    };
+    const action: any = {
+      type: CREATE_ORDER_NUMBER_SUCCESS,
+      order: exampleOrder,
+    };
+
+    expect(orderReducer(initialState, action)).toEqual({
+      ...initialState,
+      createOrderNumberFailed: false,
+      createOrderNumberRequest: false,
+      createOrderNumberSuccess: true,
+      order: exampleOrder,
+    });
+  });
+
+  it('should handle CREATE_ORDER_NUMBER_FAILED', () => {
+    const action: any = {
+      type: CREATE_ORDER_NUMBER_FAILED,
+    };
+
+    expect(orderReducer(initialState, action)).toEqual({
+      ...initialState,
+      createOrderNumberFailed: true,
+      createOrderNumberServer: false,
+    });
+  });
+
+  it('should handle GET_ORDER_SERVER', () => {
+    const action: TOrderActions = {
+      type: GET_ORDER_SERVER,
+    };
+
+    expect(orderReducer(initialState, action)).toEqual({
+      ...initialState,
+      getOrderRequest: true,
+    });
+  });
+
+  it('should handle GET_ORDER_SUCCESS', () => {
+    const exampleOrderData = {
+      order_id: '123',
+      order_details: 'Some details',
+    };
+    const action: TOrderActions = {
+      type: GET_ORDER_SUCCESS,
+      payload: exampleOrderData,
+    };
+
+    expect(orderReducer(initialState, action)).toEqual({
+      ...initialState,
+      getOrderFailed: false,
+      getOrderRequest: false,
+      orderData: exampleOrderData,
+    });
+  });
+
+  it('should handle GET_ORDER_FAILED', () => {
+    const action: TOrderActions = {
+      type: GET_ORDER_FAILED,
+    };
+
+    expect(orderReducer(initialState, action)).toEqual({
+      ...initialState,
+      getOrderRequest: false,
+      getOrderFailed: true,
+    });
+  });
+
+  it('should handle DELETE_ORDER_NUMBER', () => {
+    const action: TOrderActions = {
+      type: DELETE_ORDER_NUMBER,
+    };
+
+    expect(orderReducer(initialState, action)).toEqual({
+      ...initialState,
+      order: null,
+    });
+  });
+});

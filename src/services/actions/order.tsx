@@ -11,18 +11,26 @@ export const CREATE_ORDER_NUMBER_FAILED = "CREATE_ORDER_NUMBER_FAILED";
 export const CREATE_ORDER_NUMBER_SUCCESS = "CREATE_ORDER_NUMBER_SUCCESS";
 export const DELETE_ORDER_NUMBER = "DELETE_ORDER_NUMBER";
 
+export const ADD_INGREDIENT_ID = 'ADD_INGREDIENT_ID';
+
+export interface IAddIngredientId {
+    readonly type: typeof ADD_INGREDIENT_ID;
+    readonly payload: TIngredient['_id'];
+}
+
 export interface IGetOrderServer {
   readonly type: typeof GET_ORDER_SERVER;
-  payload: string
+  payload?: string;
+  id?: string;
 }
 export interface IGetOrderFailed {
   readonly type: typeof GET_ORDER_FAILED;
-  payload: string
+  payload?: string
   
 }
 export interface IGetOrderSuccess {
   readonly type: typeof GET_ORDER_SUCCESS;
-  payload: string
+  payload: any
 }
 
 export interface ICreateOrderNumberServer {
@@ -40,7 +48,7 @@ export interface ICreateOrderNumberSuccess {
 }
 export interface IDeleteOrderNumber {
   readonly type: typeof DELETE_ORDER_NUMBER;
-  payload: string
+  payload?: string
 }
 
 export type TOrderActions =
@@ -92,4 +100,11 @@ export function getOrder(number: any) {
         dispatch({ type: DELETE_ALL_INGREDIENTS });
       });
   };
+}
+
+export const addIngredientId = (ingredient: TIngredient): IAddIngredientId => {
+  return {
+      type: ADD_INGREDIENT_ID,
+      payload: ingredient._id
+  }
 }

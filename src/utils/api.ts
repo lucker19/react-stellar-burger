@@ -17,7 +17,17 @@ const checkSuccess = (res: any) => {
   return Promise.reject(`Ответ не success: ${res}`);
 };
 
-export const request = (endpoint: string, options: any) => {
+type TAuthorization = HeadersInit & {
+  authorization?: string | null;
+};
+
+export type TOptions = {
+  method: string;
+  headers: TAuthorization;
+  body?: BodyInit | null | undefined;
+};
+
+export const request = (endpoint: string, options?: TOptions) => {
   return fetch(`${BASE_URL}${endpoint}`, options)
     .then(checkResponse)
     .then(checkSuccess);
@@ -27,7 +37,8 @@ export const getIngredientsServer = () => {
   return fetch(`${BASE_URL}/ingredients`).then(checkResponse);
 };
 
-export const getOrderServer = (order: TOrder) => request(`/orders/`, order);
+
+export const getOrderServer = (order: string | undefined) => request(`/orders/${order}`);
 
 export const loginRequest = (data: IUser) => {
   return fetch(`${BASE_URL}/auth/login`, {

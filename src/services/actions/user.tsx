@@ -19,7 +19,7 @@ export interface IGetUserFailed {
 }
 export interface ISetAuthChecked {
   readonly type: typeof SET_AUTH_CHECKED;
-  payload: string
+  payload: any
 }
 export interface ISetUser {
   readonly type: typeof SET_USER;

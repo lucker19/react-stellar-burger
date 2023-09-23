@@ -12,65 +12,67 @@ import {
 } from "../../services/actions/burger-constructor";
 import { TIngredient } from "../../utils/prop-types";
 
+
 type TMainProps = {
   item: TIngredient;
   index: number;
 };
 
-const MainIngredient = ({ item, index }: TMainProps): ReactElement => {
-  const dispatch = useDispatch();
-  const ref = useRef(null);
+type TDragItem = {
+  name: string;
+  type: string;
+  index: number
+};
+const MainIngredient: FC<TMainProps> = ({ item, index }) => {
 
-  const onDelete = (item: TIngredient):void => {
+  const dispatch = useDispatch();
+  const ref = useRef<HTMLLIElement>(null);
+
+  const onDelete = (item: TIngredient) => {
     dispatch(deleteIngredient(item));
   };
 
   const [, dragRef] = useDrag({
-    type: "filling",
-    item: { index },
+    type: 'filling',
+    item: { index }
   });
 
-  const sortIngredientsOrder = useCallback(
-    (fromIndex, toIndex) => {
-      dispatch(sortIngredients(fromIndex, toIndex));
-    },
-    [dispatch]
-  );
+  const sortIngredientsOrder = useCallback((fromIndex, toIndex) => {
+    dispatch(sortIngredients({ fromIndex, toIndex }))
+  }, []);
 
   const [, dropRef] = useDrop({
-    accept: "filling",
-    hover(item: any, monitor) {
+    accept: 'filling',
+    hover(item: TDragItem, monitor) {
       if (!ref.current) return;
       const fromIndex = item.index;
       const toIndex = index;
       if (fromIndex === toIndex) return;
-      const hoverBoundingRect: DOMRect =
-        targetRef.current.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset: any = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
 
       if (fromIndex < toIndex && hoverClientY < hoverMiddleY) return;
       if (fromIndex > toIndex && hoverClientY > hoverMiddleY) return;
       sortIngredientsOrder(fromIndex, toIndex);
       item.index = toIndex;
-    },
+    }
   });
 
-  const targetRef: any = dragRef(dropRef(ref));
+  dragRef(dropRef(ref));
 
   return (
-    <li className={styles.content} ref={targetRef}>
-      <DragIcon type="primary" />
-      <ConstructorElement
-        text={item.name}
-        price={item.price}
-        thumbnail={item.image}
-        handleClose={() => onDelete(item)}
-      />
-    </li>
-  );
+      <li className={styles.content} ref={ref}>
+        <DragIcon type="primary" />
+        <ConstructorElement
+            text={item.name}
+            price={item.price}
+            thumbnail={item.image}
+            handleClose={() => onDelete(item)}
+        />
+      </li>
+  )
 };
 
 export default MainIngredient;

@@ -54,6 +54,7 @@ function App(): ReactElement {
         <Routes location={background || location}>
           <Route path={`/`} element={<HomePage />} />
           <Route path={"/feed"} element={<FeedPage />} />
+          <Route path={"/feed/:id"} element={<FeedOrderPage />} />
           <Route
             path={`/login`}
             element={<OnlyUnAuth component={<LoginPage />} />}
@@ -105,7 +106,7 @@ function App(): ReactElement {
               path="/feed/:id"
               element={
                 <Modal handleClose={handleModalClose}>
-                  <FeedOrderPage popup={true} />
+                  <FeedOrderPage isModal={true} />
                 </Modal>
               }
             />
@@ -113,7 +114,7 @@ function App(): ReactElement {
               path="/profile/orders/:id"
               element={
                 <Modal handleClose={handleModalClose}>
-                  <FeedOrderPage popup={true} />
+                  <FeedOrderPage isModal={true} />
                 </Modal>
               }
             />

@@ -6,8 +6,21 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_SERVER,
   DELETE_ORDER_NUMBER,
+  TOrderActions,
 } from "../actions/order";
 import { TAppActions } from "../../utils/prop-types";
+import { Reducer } from "redux";
+
+
+export interface IOrderInitialState{
+  order: any,
+  orderData: any,
+  createOrderNumberRequest: boolean,
+  createOrderNumberFailed: boolean,
+  createOrderNumberSuccess: boolean,
+  getOrderRequest: boolean,
+  getOrderFailed: boolean,
+}
 
 export const initialState = {
   order: null,
@@ -19,7 +32,7 @@ export const initialState = {
   getOrderFailed: false,
 };
 
-export const orderReducer = (state = initialState, action: any) => {
+export const orderReducer: Reducer< IOrderInitialState, TOrderActions > = (state = initialState, action: TOrderActions) => {
   switch (action.type) {
     case CREATE_ORDER_NUMBER_SERVER: {
       return {

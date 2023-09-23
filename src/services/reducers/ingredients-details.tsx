@@ -3,14 +3,19 @@ import {
   DELETE_INGREDIENTS_DETAILS,
   TIngredientDetailsActions,
 } from "../actions/ingredients-details";
+import { TIngredient } from "../../utils/prop-types";
 
-export const initialState = {
+export type TIngredientDetailsInitialState = {
+  ingredientDetails: TIngredient | null;
+};
+
+export const initialState: TIngredientDetailsInitialState = {
   ingredientDetails: null,
 };
 
 export const ingredientDetailsReducer = (
   state = initialState,
-  action: TIngredientDetailsActions
+  action: any
 ) => {
   switch (action.type) {
     case ADD_INGREDIENTS_DETAILS: {

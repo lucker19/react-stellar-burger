@@ -1,27 +1,54 @@
-import {burgerConstructorReducer, initialState} from "./burger-constructor";
+import { initialState, burgerConstructorReducer } from './burger-constructor';
+import { TConstructorBurgerAction, ADD_INGREDIENT, DELETE_INGREDIENT, SORT_INGREDIENTS, DELETE_ALL_INGREDIENTS } from '../actions/burger-constructor';
 
-import { ADD_INGREDIENT, DELETE_INGREDIENT, DELETE_ALL_INGREDIENTS, SORT_INGREDIENTS, TConstructorBurgerAction } from "../actions/burger-constructor";
-import { TIngredientsActions } from "../actions/ingredients";
+describe('burgerConstructorReducer', () => {
+it('should handle ADD_INGREDIENT for bun', () => {
+const payload = {     
+    calories: 420,
+    carbohydrates: 53,
+    fat: 24,
+    image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+    name: "Краторная булка N-200i",
+    price: 1255,
+    proteins: 80,
+    type: "bun",
+    __v: 0,
+    _id: "_id",
+    id: "id",
+    key: "key" };
+const action: TConstructorBurgerAction = { type: ADD_INGREDIENT, payload };
+const newState = burgerConstructorReducer(initialState, action);
 
-describe('order details reducer', () => {
-    const ingredient = {
-      calories: 420,
-      carbohydrates: 53,
-      fat: 24,
-      image: "https://code.s3.yandex.net/react/code/bun-02.png",
-      image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-      image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-      name: "Краторная булка N-200i",
-      price: 1255,
-      proteins: 80,
-      type: "bun",
-      __v: 0,
-      _id: "_id",
-      id: "id",
-      key: "key1"
-    }
-    const ingredients = [
-      {
+expect(newState).toEqual({ ...initialState, buns: payload });
+});
+
+
+it('should handle DELETE_INGREDIENT', () => {
+const payload = {     calories: 420,
+    carbohydrates: 53,
+    fat: 24,
+    image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+    name: "Краторная булка N-200i",
+    price: 1255,
+    proteins: 80,
+    type: "bun",
+    __v: 0,
+    _id: "_id",
+    id: "id",
+    key: "key" };
+const initialStateWithFillings = { ...initialState, fillings: [payload] };
+const action: TConstructorBurgerAction = { type: DELETE_INGREDIENT, payload };
+const newState = burgerConstructorReducer(initialStateWithFillings, action);
+
+expect(newState).toEqual({ ...initialState, fillings: [] });
+});
+
+it('should handle SORT_INGREDIENTS', () => {
+    const fillings = [ {
         calories: 420,
         carbohydrates: 53,
         fat: 24,
@@ -68,69 +95,69 @@ describe('order details reducer', () => {
         _id: "_id",
         id: "id",
         key: "key3"
-      },
-    ]
-  
-    it('should return the initial state', () => {
-      expect(burgerConstructorReducer(initialState, {} as any)).toEqual(
-        initialState
-      )
-    })
-  
-    it('should handle ADD_INGREDIENT', () => {
-      const action:TConstructorBurgerAction = {
-        type: ADD_INGREDIENT,
-        payload: ingredient
-      }
-      expect(
-        burgerConstructorReducer(initialState, action)
-      ).toEqual({
-        ...initialState,
-        fillings: [...initialState.fillings, ingredient]
-      })
-    })
-  
-    it('should handle SORT_INGREDIENTS', () => {
-      const action:any = {
-        type: SORT_INGREDIENTS,
-        payload:  {
-            fromIndex: 0,
-            toIndex: 1
-        }
-      }
-      expect(
-        burgerConstructorReducer(initialState, action)
-      ).toEqual({
-        ...initialState,
-        fillings: ingredients
-      })
-    })
-  
-  
-    it('should handle DELETE_INGREDIENT_CONSTRUCTOR', () => {
-      const key = "key1"
-      const action: any = {
-        type: DELETE_INGREDIENT,
-        key: key
-      }
-      expect(
-        burgerConstructorReducer(initialState, action)
-      ).toEqual({
-        ...initialState,
-        fillings: initialState.fillings.filter((el) => el.key !== key),
-      })
-    })
-  
-    it('should handle DELETE_All_INGREDIENT', () => {
-      const action: any = {
-        type: DELETE_ALL_INGREDIENTS,
-      }
-      expect(
-        burgerConstructorReducer(initialState, action)
-      ).toEqual({
-        ...initialState,
-        fillings: [],
-        buns: null
-      })
-    })
-  })
+      },];
+    const initialStateWithFillings = { ...initialState, fillings };
+    const payload = { fromIndex: 0, toIndex: 2 };
+    const action: TConstructorBurgerAction = { type: SORT_INGREDIENTS, payload };
+    const newState = burgerConstructorReducer(initialStateWithFillings, action);
+    
+    expect(newState).toEqual({ ...initialState, fillings: [fillings[1], fillings[2], fillings[0]] });
+    });
+
+it('should handle DELETE_ALL_INGREDIENTS', () => {
+const fillings = [{
+    calories: 420,
+    carbohydrates: 53,
+    fat: 24,
+    image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+    name: "Краторная булка N-200i",
+    price: 1255,
+    proteins: 80,
+    type: "bun",
+    __v: 0,
+    _id: "_id",
+    id: "id",
+    key: "key1"
+  },
+  {
+    calories: 420,
+    carbohydrates: 53,
+    fat: 24,
+    image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+    name: "Краторная булка N-200i",
+    price: 1255,
+    proteins: 80,
+    type: "bun",
+    __v: 0,
+    _id: "_id",
+    id: "id",
+    key: "key2"
+  },
+  {
+    calories: 420,
+    carbohydrates: 53,
+    fat: 24,
+    image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+    name: "Краторная булка N-200i",
+    price: 1255,
+    proteins: 80,
+    type: "bun",
+    __v: 0,
+    _id: "_id",
+    id: "id",
+    key: "key3"
+  },];
+const initialStateWithFillings = { ...initialState, fillings };
+const action: any = { type: DELETE_ALL_INGREDIENTS };
+const newState = burgerConstructorReducer(initialStateWithFillings, action);
+
+expect(newState).toEqual(initialState);
+});
+
+});

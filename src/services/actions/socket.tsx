@@ -45,7 +45,8 @@ export type TWsActions =
   | IWsConnectionSuccess
   | IWsConnectionError
   | IWsConnectionClosed
-  | IWsGetOrders;
+  | IWsGetOrders
+
 
 type TOrderPayload = {
   success: boolean;

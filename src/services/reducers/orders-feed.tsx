@@ -5,23 +5,31 @@ import {
   WS_ORDER_ERROR,
 } from "../actions/orders-feed";
 import { TOredersFEedActions } from "../actions/orders-feed";
-import { TIngredients } from "../../utils/prop-types";
+import { TIngredients, TOrder } from "../../utils/prop-types";
 
-interface IOrdersFeedState {
-  orders: TIngredients;
-  wsConnected: false;
-  error: "";
+export interface IOrdersFeedState {
+  orders: {
+    orders: TOrder[];
+    total: number;
+    totalToday: number
+  };
+  wsConnected: boolean;
+  error: string
 }
 
 export const initialState: IOrdersFeedState = {
   wsConnected: false,
-  orders: [],
+  orders: {
+    orders: [],
+    total: 0,
+    totalToday: 0
+  },
   error: "",
 };
 
 export const feedOrdersReducer = (
   state = initialState,
-  action: TOredersFEedActions
+  action: any
 ) => {
   switch (action.type) {
     case WS_ORDER_OPEN:
@@ -36,12 +44,12 @@ export const feedOrdersReducer = (
         wsConnected: false,
         error: "",
       };
-    case WS_ORDER_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-        wsConnected: false,
-      };
+      case WS_ORDER_ERROR:
+        return {
+          ...state,
+          error: '',
+          wsConnected: false
+        };
     case WS_ORDER_MESSAGE:
       return {
         ...state,

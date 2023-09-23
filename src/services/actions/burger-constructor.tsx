@@ -17,32 +17,20 @@ export interface IDeleteIngredient {
 
 export interface ISortIngredient {
   readonly type: typeof SORT_INGREDIENTS;
-  readonly payload: { dragIndex: number; hoverIndex: number };
-  readonly toIndex: number;
-  readonly fromIndex: number;
+  readonly payload: {'fromIndex': number, 'toIndex': number};
 }
 
 export interface IDeleteAllIngredients {
   readonly type: typeof DELETE_ALL_INGREDIENTS;
-  readonly payload: string;
+  readonly payload: TIngredient;
 }
 
 export type TConstructorBurgerAction =
-  | IAddIngredient
+    IAddIngredient
   | IDeleteIngredient
   | ISortIngredient
   | IDeleteAllIngredients;
 
-export const addIngredient = (payload: any) => ({
-  type: ADD_INGREDIENT,
-  payload,
-});
-export const deleteIngredient = (ingredient: TIngredient) => ({
-  type: DELETE_INGREDIENT,
-  ingredient,
-});
-export const sortIngredients = (fromIndex: number, toIndex: number) => ({
-  type: SORT_INGREDIENTS,
-  fromIndex: fromIndex,
-  toIndex: toIndex,
-});
+  export const addIngredient = (ingredient: TIngredient): IAddIngredient => ({ type: ADD_INGREDIENT, payload: ingredient });
+  export const deleteIngredient = (ingredient: TIngredient): IDeleteIngredient => ({ type: DELETE_INGREDIENT,  payload: ingredient });
+  export const sortIngredients = (index: { 'fromIndex': number, 'toIndex': number }): ISortIngredient => ({ type: SORT_INGREDIENTS, payload: index });
