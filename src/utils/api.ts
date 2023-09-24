@@ -1,16 +1,38 @@
+import { TForm } from "./prop-types";
 import { IUser, TIngredient, TIngredients, TOrder } from "./prop-types";
 export const BASE_URL = "https://norma.nomoreparties.space/api";
 export const wsUrl: string = "wss://norma.nomoreparties.space/orders/all";
 export const userOrdersUrl: string = `wss://norma.nomoreparties.space/orders`;
 
-export const checkResponse = (res: any) => {
+
+interface SuccessResponse {
+  success: true;
+  data: TIngredient[];
+  orders: TOrder[];
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    email: string;
+    name: string;
+    password: string;
+  };
+}
+
+interface ErrorResponse {
+  success: false;
+  data: {
+    error: string;
+  };
+}
+
+export const checkResponse = (res: Response) => {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(`Ошибка ${res.status}`);
 };
 
-const checkSuccess = (res: any) => {
+const checkSuccess = (res: SuccessResponse | ErrorResponse) => {
   if (res && res.success) {
     return res;
   }
@@ -52,6 +74,7 @@ export const loginRequest = (data: IUser) => {
     }),
   }).then(checkResponse);
 };
+
 
 export const logoutRequest = (data: IUser) => {
   return fetch(`${BASE_URL}/auth/logout`, {
@@ -116,7 +139,9 @@ export const refreshToken = () => {
   }).then(checkResponse);
 };
 
-export const fetchWithRefresh = async (url: string, options: any) => {
+
+
+export const fetchWithRefresh = async (url: string, options: TOptions) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
@@ -129,7 +154,7 @@ export const fetchWithRefresh = async (url: string, options: any) => {
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
-      const res = fetch(url, options);
+      const res = await fetch(url, options);
       return await checkResponse(res);
     } else {
       return Promise.reject(err);
@@ -139,38 +164,38 @@ export const fetchWithRefresh = async (url: string, options: any) => {
 
 export const getUserRequest = () => {
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("accessToken"),
-    },
-  });
+      'Content-Type': 'application/json',
+      'authorization': `${localStorage.getItem('accessToken')}`
+    }
+  })
 };
 
-export const updateUserProfileRequest = (data: IUser) => {
+export const updateUserProfileRequest = (data: TForm) => {
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("accessToken"),
+      'Content-Type': 'application/json',
+      'authorization': `${localStorage.getItem('accessToken')}`
     },
     body: JSON.stringify({
       name: data.name,
       email: data.email,
-      password: data.password,
-    }),
-  });
+      password: data.password
+    })
+  })
 };
 
-export const getOrderNumberRequest = (ingredients: TIngredients) => {
+export const getOrderNumberRequest = (ingredients: string[]) => {
   return fetchWithRefresh(`${BASE_URL}/orders`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("accessToken"),
+      'Content-Type': 'application/json',
+      'authorization': `${localStorage.getItem('accessToken')}`
     },
     body: JSON.stringify({
-      ingredients: ingredients,
+      ingredients: ingredients
     }),
-  });
+  })
 };

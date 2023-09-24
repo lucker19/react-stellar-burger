@@ -11,7 +11,7 @@ import { TIngredient, TOrder } from '../../utils/prop-types';
 export const ProfileOrders = () => {
 
     const dispatch = useDispatch();
-    const { orders } = useSelector((state:any) => state.feedOrders.orders);
+    const { orders } = useSelector((state) => state.feedOrders.orders);
   
     useEffect(() => {
       dispatch(wsProfileOrdersConnect(userOrdersUrl));

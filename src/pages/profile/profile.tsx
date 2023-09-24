@@ -15,28 +15,8 @@ import { Outlet } from "react-router-dom";
 import { RootState } from "../../services/reducers";
 
 export default function ProfilePage(): ReactElement {
-  const dispatch = useDispatch();
-  const getUser = (store: RootState) => store.user.user;
-  const user = useSelector(getUser);
-  const [form, setForm] = useState({
-    email: user.email,
-    password: "",
-    name: user.name,
-  });
   const { pathname } = useLocation();
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const onResetUserData = (e: SyntheticEvent) => {
-    e.preventDefault();
-    setForm({
-      name: user.name,
-      email: user.email,
-      password: "",
-    });
-  };
-
+  const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logOut(localStorage.getItem("refreshToken")));
   };

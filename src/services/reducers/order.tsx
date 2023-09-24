@@ -10,11 +10,12 @@ import {
 } from "../actions/order";
 import { TAppActions } from "../../utils/prop-types";
 import { Reducer } from "redux";
+import { TOrder } from "../../utils/prop-types";
 
 
 export interface IOrderInitialState{
-  order: any,
-  orderData: any,
+  order: number | null,
+  orderData: TOrder,
   createOrderNumberRequest: boolean,
   createOrderNumberFailed: boolean,
   createOrderNumberSuccess: boolean,
@@ -24,7 +25,15 @@ export interface IOrderInitialState{
 
 export const initialState = {
   order: null,
-  orderData: {},
+  orderData: {    createdAt: '',
+  ingredients: [],
+  name: '',
+  number: 0,
+  owner: '',
+  status: '',
+  updatedAt: '',
+  _id: '',
+  __v: 0},
   createOrderNumberRequest: false,
   createOrderNumberFailed: false,
   createOrderNumberSuccess: false,

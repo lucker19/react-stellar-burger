@@ -25,12 +25,43 @@ export type TIngredient = {
   image_large: string;
   __v: number;
   key: string;
+  uniqueId?: string;
 };
 
 export type TSelectedIngredient = TIngredient & {
   id?: string;
 }
 
+export type TUser = {
+  accessToken: string;
+  refreshToken: string;
+  user: {
+      email: string;
+      name: string;
+      password?: string;
+  } | null;
+};
+
+export type TImages = {
+  images: string;
+  name: string;
+};
+
+export type TUserUpdate = {
+  success: boolean;
+  user: {
+      email: string;
+      name: string;
+  };
+};
+
+
+export type TForm = {
+  name?: string,
+  password: string,
+  email: string,
+  token?: string
+};
 
 export interface IUser {
   name: string;
@@ -74,6 +105,7 @@ export type TOrder = {
   updatedAt: string;
   _id: string;
   __v: number;
+
 };
 
 export type TOrders = {

@@ -1,5 +1,5 @@
 import { ingredientDetailsReducer, TIngredientDetailsInitialState } from './ingredients-details';
-import { ADD_INGREDIENTS_DETAILS, DELETE_INGREDIENTS_DETAILS } from '../actions/ingredients-details';
+import { ADD_INGREDIENTS_DETAILS, DELETE_INGREDIENTS_DETAILS,TIngredientDetailsActions, } from '../actions/ingredients-details';
 
 describe('ingredientDetailsReducer', () => {
 const initialState: TIngredientDetailsInitialState = {
@@ -27,19 +27,19 @@ const payload = {
     id: "id",
     key: "key" 
 };
-const action = { type: ADD_INGREDIENTS_DETAILS, payload };
+const action: TIngredientDetailsActions = { type: ADD_INGREDIENTS_DETAILS, payload };
 const expectedState = { ingredientDetails: payload };
 expect(ingredientDetailsReducer(initialState, action)).toEqual(expectedState);
 });
 
 it('should handle DELETE_INGREDIENTS_DETAILS', () => {
-const action = { type: DELETE_INGREDIENTS_DETAILS };
+const action: TIngredientDetailsActions = { type: DELETE_INGREDIENTS_DETAILS };
 const expectedState = { ingredientDetails: null };
 expect(ingredientDetailsReducer(initialState, action)).toEqual(expectedState);
 });
 
 it('should return the current state for unknown action types', () => {
-const action = { type: 'UNKNOWN_ACTION' };
+const action: any = { type: 'UNKNOWN_ACTION' };
 expect(ingredientDetailsReducer(initialState, action)).toEqual(initialState);
 });
 });

@@ -48,12 +48,12 @@ export const socketMiddleware = (wsActions: {[key:string]: any}): Middleware => 
           });
         };
 
-        socket.onmessage = (event: any) => {
+        socket.onmessage = event => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch({
             type: onMessage,
-            payload: parsedData,
+            payload: parsedData
           });
         };
 

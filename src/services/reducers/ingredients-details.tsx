@@ -15,7 +15,7 @@ export const initialState: TIngredientDetailsInitialState = {
 
 export const ingredientDetailsReducer = (
   state = initialState,
-  action: any
+  action: TIngredientDetailsActions
 ) => {
   switch (action.type) {
     case ADD_INGREDIENTS_DETAILS: {

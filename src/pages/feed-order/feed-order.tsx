@@ -39,7 +39,7 @@ type TFeedOrderProps = {
       dispatch(getOrder(id));
     }, [id]);
   
-    const totalPrice = ingredients && ingredientsList && ingredients.reduce((total: string, id: string) => {
+    const totalPrice = ingredients && ingredientsList && ingredients.reduce((total, id) => {
       ingredientsList.forEach((item: TIngredient) => {
         if (item._id=== id) {
           total += item.price
@@ -50,7 +50,7 @@ type TFeedOrderProps = {
   
   
     if (ingredients && ingredientsList) {
-      ingredients.forEach((item: any) => {
+      ingredients.forEach((item) => {
         if (counter[item] === undefined) {
           counter[item] = 1;
           const addedItem = ingredientsList.find((element: TIngredient) => element._id === item);

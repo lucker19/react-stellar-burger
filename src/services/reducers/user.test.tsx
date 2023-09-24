@@ -29,15 +29,15 @@ import {
       expect(userReducer(undefined, {} as TUserActions)).toEqual(initialState);
     });
     it('should handle SET_AUTH_CHECKED', () => {
-      const action: TUserActions = {
-        type: SET_AUTH_CHECKED,
-        payload: true,
-      };
-  
-      const expectedState = {
-        ...initialState,
-        isAuthChecked: true,
-      };
+        const action: any = {
+          type: SET_AUTH_CHECKED,
+          payload: true,
+        };
+    
+        const expectedState = {
+          ...initialState,
+          isAuthChecked: true,
+        };
   
       expect(userReducer(initialState, action)).toEqual(expectedState);
     });

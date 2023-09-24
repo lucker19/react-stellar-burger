@@ -154,7 +154,7 @@ const fillings = [{
     key: "key3"
   },];
 const initialStateWithFillings = { ...initialState, fillings };
-const action: any = { type: DELETE_ALL_INGREDIENTS };
+const action: TConstructorBurgerAction = { type: DELETE_ALL_INGREDIENTS };
 const newState = burgerConstructorReducer(initialStateWithFillings, action);
 
 expect(newState).toEqual(initialState);

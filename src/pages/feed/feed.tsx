@@ -14,7 +14,7 @@ import { TIngredient, TOrder } from "../../utils/prop-types";
 const FeedPage: FC = () => {
   const dispatch = useDispatch();
   const { orders, total, totalToday } = useSelector(
-    (state: any) => state.feedOrders.orders
+    (state) => state.feedOrders.orders
   );
 
   useEffect(() => {

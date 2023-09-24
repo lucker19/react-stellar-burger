@@ -18,7 +18,7 @@ export const initialState: IConstructorBurgerState = {
 };
 export const burgerConstructorReducer = (
   state: IConstructorBurgerState = initialState,
-  action: any
+  action: TConstructorBurgerAction
 ): IConstructorBurgerState => {
   switch (action.type) {
     case ADD_INGREDIENT: {

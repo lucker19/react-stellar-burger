@@ -13,6 +13,7 @@ import {
   getTime,
 } from "../../utils/prop-types";
 import { RootState } from "../../services/reducers";
+import { TImages } from "../../utils/prop-types";
 
 type TorderCardProps = {
   number?: number;
@@ -31,7 +32,7 @@ const OrderCard = (props: TorderCardProps) => {
   const getIngredientsList = (store: RootState) =>
     store.ingredients.ingredients;
   const ingredientsList = useSelector(getIngredientsList);
-  const images: any[] = [];
+  const images: TImages[] = [];
 
   const totalPrice =
     ingredients &&
@@ -49,11 +50,11 @@ const OrderCard = (props: TorderCardProps) => {
   ingredientsList &&
     ingredients &&
     ingredientsList.forEach((ingredient: TIngredient) => {
-      ingredients.forEach((item) => {
-        if (item === ingredient._id) {
-          images.push({
-            image: ingredient.image,
-            name: ingredient.name,
+ingredients.forEach((item) => {
+      if (item === ingredient._id) {
+        images.push({
+          images: ingredient.image,
+          name: ingredient.name
           });
         }
       });
@@ -113,7 +114,7 @@ const OrderCard = (props: TorderCardProps) => {
                 <div className={styles.image_container}>
                   <img
                     className={styles.image}
-                    src={item.image}
+                    src={item.images}
                     alt={item.name}
                   />
                 </div>
@@ -124,7 +125,7 @@ const OrderCard = (props: TorderCardProps) => {
                 <div className={styles.image_container}>
                   <img
                     className={styles.image}
-                    src={images[5].image}
+                    src={images[5].images}
                     alt={images[5].name}
                   />
                 </div>

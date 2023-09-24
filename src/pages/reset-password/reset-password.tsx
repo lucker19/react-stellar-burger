@@ -15,6 +15,7 @@ export function ResetPasswordPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setForm] = useState({
+    email: "",
     password: "",
     token: "",
   });

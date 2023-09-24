@@ -1,6 +1,7 @@
 import { getOrderServer, getOrderNumberRequest } from "../../utils/api";
-import { TIngredient, TOrder } from "../../utils/prop-types";
+import { AppDispatch, TIngredient, TOrder } from "../../utils/prop-types";
 import { DELETE_ALL_INGREDIENTS } from "./burger-constructor";
+import { AppThunk } from "../../utils/prop-types";
 
 export const GET_ORDER_SERVER = "GET_ORDER_SERVER";
 export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
@@ -60,31 +61,26 @@ export type TOrderActions =
   | ICreateOrderNumberFailed
   | ICreateOrderNumberServer;
 
-export const createOrderNumber = (ingredientsId: any) => {
-  return function (dispatch: any) {
-    dispatch({ type: CREATE_ORDER_NUMBER_SERVER });
-    getOrderNumberRequest(ingredientsId)
-      .then(({ success, order: { number } }) => {
-        if (success) {
-          dispatch({
-            type: CREATE_ORDER_NUMBER_SUCCESS,
-            order: number,
+  export const createOrderNumber: AppThunk = (ingredientsId: string[]) => {
+    return function(dispatch: AppDispatch) {
+      dispatch({ type: CREATE_ORDER_NUMBER_SERVER });
+      getOrderNumberRequest(ingredientsId)
+          .then((res) => {
+              dispatch({
+                type: CREATE_ORDER_NUMBER_SUCCESS,
+                payload: res.order.number,
+              });
+          })
+          .catch(() => {
+            dispatch({ type: CREATE_ORDER_NUMBER_FAILED });
           });
-        } else {
-          dispatch({ type: CREATE_ORDER_NUMBER_FAILED });
-        }
-      })
-      .catch(() => {
-        dispatch({ type: CREATE_ORDER_NUMBER_FAILED });
-      });
+    };
   };
-};
-
-export function getOrder(number: any) {
-  return function (dispatch: any) {
+export function getOrder(number: string | undefined) {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: GET_ORDER_SERVER });
     getOrderServer(number)
-      .then((res: any) => {
+      .then((res) => {
         if (res.success) {
           dispatch({
             type: GET_ORDER_SUCCESS,

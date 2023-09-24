@@ -83,6 +83,11 @@ function App(): ReactElement {
               path={"/profile/orders"}
               element={<OnlyAuth component={<ProfileOrders />} />}
             />
+            <Route
+              path={"/profile/orders/:id"}
+              element={<OnlyAuth component={<ProfileOrders />} />}
+            />
+            
           </Route>
           <Route path={"/ingredients/:ingredientId"} element={<Ingredient />} />
           <Route

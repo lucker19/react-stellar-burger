@@ -26,28 +26,20 @@ export const initialState = {
   user: null,
   isAuthChecked: false,
   getUserFailed: false,
-
   loginRequest: false,
   loginFailed: false,
-
   logoutRequest: false,
   logoutFailed: false,
-
   registerRequest: false,
   registerFailed: false,
-
   updateUserRequest: false,
   updateUserFailed: false,
-
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
-
   resetPasswordRequest: false,
   resetPasswordFailed: false,
-
   isPasswordChanged: false,
 };
-
 export const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SET_AUTH_CHECKED: {
@@ -201,4 +193,5 @@ export const userReducer = (state = initialState, action: any) => {
       return state;
     }
   }
-};
+
+}

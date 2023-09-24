@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { SyntheticEvent, useEffect } from "react";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Card from "../card/card";
@@ -7,10 +7,7 @@ import IngredientDetails from "../ingredients-detals/ingredients-details";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { useInView } from "react-intersection-observer";
 import { getIngredients } from "../../services/actions/ingredients";
-import {
-  addIngredientsDetails,
-  deleteIngredientsDetails,
-} from "../../services/actions/ingredients-details";
+
 import { FC } from "react";
 import { TIngredient } from "../../utils/prop-types";
 import { RootState } from "../../services/reducers";

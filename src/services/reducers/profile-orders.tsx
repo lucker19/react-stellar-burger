@@ -18,7 +18,7 @@ const initialState: TProfileOrdersInitialState = {
   wsConnected: ''
 };
 
-export const profileOrdersReducer = (state: TProfileOrdersInitialState = initialState, action: any) => {
+export const profileOrdersReducer = (state = initialState, action: TWsProfileOrdersActions) => {
   switch (action.type) {
     case WS_PROFILE_ORDERS_OPEN:
       return {

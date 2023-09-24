@@ -97,7 +97,7 @@ const BurgerConstructor: FC = () => {
             {fillings.map((item, index) => {
               return (
                 <MainIngredient
-                    key={item._id}
+                    key={ item.uniqueId }
                     index={index}
                     item={item}
                 />
