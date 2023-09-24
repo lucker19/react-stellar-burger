@@ -2,7 +2,7 @@
   "name": "react-burger-starter",
   "homepage": "https://lucker19.github.io/react-stellar-burger",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "@reduxjs/toolkit": "^1.9.5",
@@ -50,8 +50,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "cypress": "cypress open cache clear",
-    "build:dist": "react-build-dist"
+    "cypress": "cypress open cache clear"
   },
   "eslintConfig": {
     "extends": [

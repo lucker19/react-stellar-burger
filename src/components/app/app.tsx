@@ -48,6 +48,7 @@ function App(): ReactElement {
   };
 
   return (
+    
     <DndProvider backend={HTML5Backend}>
       <div className={styles.app}>
         <AppHeader />
@@ -122,6 +123,7 @@ function App(): ReactElement {
         )}
       </div>
     </DndProvider>
+    
   );
 }
 
