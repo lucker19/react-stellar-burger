@@ -8,6 +8,7 @@ import {
   updateUserProfileRequest,
 } from "../../utils/api";
 import { AppDispatch, IUser, TForm, TUser } from "../../utils/prop-types";
+import { AppThunk } from "../../utils/prop-types";
 export const GET_USER_FAILED = "GET_USER_FAILED";
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 export const SET_USER = "SET_USER";
@@ -91,15 +92,15 @@ export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export interface IResetPasswordRequest {
   readonly type: typeof RESET_PASSWORD_REQUEST;
-  payload: string
+
 }
 export interface IResetPasswordFailed {
   readonly type: typeof RESET_PASSWORD_FAILED;
-  payload: string
+
 }
 export interface IResetPasswordSuccess {
   readonly type: typeof RESET_PASSWORD_SUCCESS;
-  payload: string
+
 }
 export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
 export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
@@ -271,19 +272,15 @@ export function forgotPassword(email: any) {
       });
   };
 }
-export function resetPassword(password: TForm) {
-  return function (dispatch: AppDispatch) {
+export const resetPassword: AppThunk = (password: TForm) => {
+  return function(dispatch: AppDispatch) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
     resetPasswordRequest(password)
-      .then((res) => {
-        if (res && res.success) {
-          dispatch({ type: RESET_PASSWORD_SUCCESS });
-        } else {
+        .then(() => {
+            dispatch({ type: RESET_PASSWORD_SUCCESS });
+        })
+        .catch(() => {
           dispatch({ type: RESET_PASSWORD_FAILED });
-        }
-      })
-      .catch(() => {
-        dispatch({ type: RESET_PASSWORD_FAILED });
-      });
+        });
   };
 }

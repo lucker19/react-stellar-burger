@@ -50,14 +50,14 @@ export const orderReducer: Reducer< IOrderInitialState, TOrderActions > = (state
       };
     }
     case CREATE_ORDER_NUMBER_SUCCESS: {
-      return {
-        ...state,
-        createOrderNumberFailed: false,
-        createOrderNumberRequest: false,
-        createOrderNumberSuccess: true,
-        order: action.order,
-      };
-    }
+        return {
+          ...state,
+          createOrderNumberFailed: false,
+          createOrderNumberRequest: false,
+          createOrderNumberSuccess: true,
+          order: action.payload
+        };
+      }
     case CREATE_ORDER_NUMBER_FAILED: {
       return {
         ...state,

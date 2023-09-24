@@ -36,16 +36,16 @@ export interface IGetOrderSuccess {
 
 export interface ICreateOrderNumberServer {
   readonly type: typeof CREATE_ORDER_NUMBER_SERVER;
-  payload: string
+
 }
 export interface ICreateOrderNumberFailed {
   readonly type: typeof CREATE_ORDER_NUMBER_FAILED;
-  payload: string
+
 }
 export interface ICreateOrderNumberSuccess {
   readonly type: typeof CREATE_ORDER_NUMBER_SUCCESS;
-  order: number;
-  payload: string
+  
+  readonly payload: number;
 }
 export interface IDeleteOrderNumber {
   readonly type: typeof DELETE_ORDER_NUMBER;

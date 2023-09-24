@@ -54,26 +54,11 @@ const FeedPage: FC = () => {
           <div className={styles.orders}>
             <div className={styles.info}>
               <h2 className="text text_type_main-medium mb-6">Готовы:</h2>
-              {orders &&
-                doneList &&
-                doneList.map((item: TOrder, index: string) => (
-                  <p
-                    key={index}
-                    className={`text text_type_digits-default ${styles.number}`}
-                  >
-                    {item}
-                  </p>
-                ))}
+              {orders && doneList && doneList.map((item, index) => <p key={index} className={`text text_type_digits-default ${styles.number}`}>{item}</p>)}
             </div>
             <div className={styles.info}>
               <h2 className="text text_type_main-medium mb-6">В работе:</h2>
-              {orders &&
-                pendingList &&
-                pendingList.map((item: TOrder, index: string) => (
-                  <p key={index} className="text text_type_digits-default">
-                    {item}
-                  </p>
-                ))}
+              {orders && pendingList && pendingList.map((item, index) => <p key={index} className="text text_type_digits-default">{item}</p>)}
             </div>
           </div>
 

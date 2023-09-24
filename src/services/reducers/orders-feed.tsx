@@ -29,7 +29,7 @@ export const initialState: IOrdersFeedState = {
 
 export const feedOrdersReducer = (
   state = initialState,
-  action: any
+  action: TOredersFEedActions
 ) => {
   switch (action.type) {
     case WS_ORDER_OPEN:
