@@ -1,6 +1,6 @@
 {
   "name": "react-burger-starter",
-  "homepage": "./",
+  "homepage": "https://lucker19.github.io/react-stellar-burger",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,8 +8,10 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.14.0",
     "clsx": "^1.2.1",
+    "dist": "^0.1.2",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
+    "react-build-dist": "^0.0.8",
     "react-dnd": "^14.0.5",
     "react-dnd-html5-backend": "^14.1.0",
     "react-dom": "^18.0.0",
@@ -48,7 +50,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "cypress": "cypress open cache clear"
+    "cypress": "cypress open cache clear",
+    "build:dist": "react-build-dist"
   },
   "eslintConfig": {
     "extends": [
