@@ -7,7 +7,7 @@ import {
   resetPasswordRequest,
   updateUserProfileRequest,
 } from "../../utils/api";
-import { AppDispatch, IUser, TForm } from "../../utils/prop-types";
+import { AppDispatch, IUser, TForm, TUser } from "../../utils/prop-types";
 export const GET_USER_FAILED = "GET_USER_FAILED";
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 export const SET_USER = "SET_USER";
@@ -37,7 +37,8 @@ export interface ILoginFailed {
 }
 export interface ILoginSuccess {
   readonly type: typeof LOGIN_SUCCESS;
-  payload: string
+  payload: TUser
+  data: TForm
 }
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_FAILED = "LOGOUT_FAILED";
@@ -67,7 +68,8 @@ export interface IRegisterFailed {
 }
 export interface IRegisterSuccess {
   readonly type: typeof REGISTER_SUCCESS;
-  payload: string
+  payload: TUser
+  data: TForm
 }
 export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
 export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
@@ -112,7 +114,8 @@ export interface IUpdateUserfailed {
 }
 export interface IUpdateUserSuccess {
   readonly type: typeof UPDATE_USER_SUCCESS;
-  payload: string
+  payload: TUser
+  data: TForm
 }
 export type TUserActions =
   | IGetUserFailed

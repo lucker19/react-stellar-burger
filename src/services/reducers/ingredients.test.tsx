@@ -3,11 +3,11 @@ import { GET_INGREDIENTS_SERVER,GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS,
 
 describe('ingredientsReducer', () => {
   it('should return the initial state', () => {
-  expect(ingredientsReducer(undefined, {})).toEqual(initialState);
+  expect(ingredientsReducer(undefined, {} as any)).toEqual(initialState);
   });
   
   it('should handle GET_INGREDIENTS_SERVER', () => {
-  const action = { type: 'GET_INGREDIENTS_SERVER' };
+  const action:TIngredientsActions = { type: 'GET_INGREDIENTS_SERVER' };
   const expectedState = {
   ...initialState,
   ingredientsRequest: true,
@@ -64,7 +64,7 @@ describe('ingredientsReducer', () => {
     id: "id",
     key: "key"
   },];
-  const action = {
+  const action:TIngredientsActions = {
   type: 'GET_INGREDIENTS_SUCCESS',
   payload: payload,
   };
@@ -78,7 +78,7 @@ describe('ingredientsReducer', () => {
   });
   
   it('should handle GET_INGREDIENTS_FAILED', () => {
-  const action = { type: 'GET_INGREDIENTS_FAILED' };
+  const action:TIngredientsActions = { type: 'GET_INGREDIENTS_FAILED' };
   const expectedState = {
   ...initialState,
   ingredients: [],

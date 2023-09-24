@@ -5,14 +5,21 @@ import {
   GET_INGREDIENTS_SUCCESS,
   TIngredientsActions,
 } from "../actions/ingredients";
+import { TIngredient } from "../../utils/prop-types";
 
-export const initialState = {
-  ingredients: [],
-  ingredientsRequest: false,
-  ingredientsFailed: false,
+export type TIngredientsInitialState = {
+  ingredients: TIngredient[];
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
 };
 
-export const ingredientsReducer = (state = initialState, action: any) => {
+export const initialState: TIngredientsInitialState = {
+  ingredients: [],
+  ingredientsRequest: false,
+  ingredientsFailed: false
+};
+
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
   switch (action.type) {
     case GET_INGREDIENTS_SERVER: {
       return {

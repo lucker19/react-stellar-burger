@@ -39,7 +39,7 @@ export type TUser = {
       email: string;
       name: string;
       password?: string;
-  } | null;
+  };
 };
 
 export type TImages = {

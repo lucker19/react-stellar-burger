@@ -20,27 +20,66 @@ import {
   UPDATE_USER_SUCCESS,
   SET_AUTH_CHECKED,
   SET_USER,
+  TUserActions,
 } from "../actions/user";
 
-export const initialState = {
-  user: null,
+export type TUserInitialState = {
+  name: string;
+  email: string;
+  isAuthChecked: boolean;
+  getUserFailed: boolean;
+  getUserRequest: boolean;
+
+  loginRequest: boolean;
+  loginFailed: boolean;
+
+  logoutRequest: boolean;
+  logoutFailed: boolean;
+
+  registerRequest: boolean;
+  registerFailed: boolean;
+
+  updateUserRequest: boolean;
+  updateUserFailed: boolean;
+
+  forgotPasswordRequest: boolean;
+  forgotPasswordFailed: boolean;
+
+  resetPasswordRequest: boolean;
+  resetPasswordFailed: boolean;
+
+  isPasswordChanged: boolean;
+}
+
+export const initialState: TUserInitialState = {
+  name: '',
+  email: '',
   isAuthChecked: false,
   getUserFailed: false,
+  getUserRequest: false,
+
   loginRequest: false,
   loginFailed: false,
+
   logoutRequest: false,
   logoutFailed: false,
+
   registerRequest: false,
   registerFailed: false,
+
   updateUserRequest: false,
   updateUserFailed: false,
+
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
+
   resetPasswordRequest: false,
   resetPasswordFailed: false,
-  isPasswordChanged: false,
+
+  isPasswordChanged: false
 };
-export const userReducer = (state = initialState, action: any) => {
+
+export const userReducer = (state: TUserInitialState = initialState, action: TUserActions) => {
   switch (action.type) {
     case SET_AUTH_CHECKED: {
       return {
@@ -72,7 +111,9 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         loginRequest: false,
         loginFailed: false,
-        user: action.data,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        isAuthChecked: true
       };
     }
     case LOGIN_FAILED: {
@@ -115,7 +156,9 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         registerRequest: false,
         registerFailed: false,
-        user: action.data,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        isAuthChecked: true
       };
     }
     case REGISTER_FAILED: {
@@ -137,7 +180,8 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         updateUserRequest: false,
         updateUserFailed: false,
-        user: action.data,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
       };
     }
     case UPDATE_USER_FAILED: {

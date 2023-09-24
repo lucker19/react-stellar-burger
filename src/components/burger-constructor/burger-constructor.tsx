@@ -34,7 +34,7 @@ const BurgerConstructor: FC = () => {
 
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
-  const user = useSelector((store) => store.user.user);
+  const user = useSelector((store) => store.user.name);
 
   const orderSuccess = useSelector((store) => store.order.createOrderNumberSuccess);
 
