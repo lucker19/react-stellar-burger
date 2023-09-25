@@ -10,9 +10,7 @@ import { RootState } from "../../services/reducers";
 export const Ingredient: FC = () => {
   const dispatch = useDispatch();
 
-  const getIngredientsList = (store: RootState) =>
-    store.ingredients.ingredients;
-  const ingredientsList = useSelector(getIngredientsList);
+  const ingredientsList = useSelector((store: RootState) => store.ingredients.ingredients);
   const { ingredientId } = useParams();
   const ingredient = ingredientsList.find(
     (item: TIngredient) => item._id === ingredientId

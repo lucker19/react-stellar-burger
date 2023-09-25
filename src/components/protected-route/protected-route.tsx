@@ -14,16 +14,18 @@ type TProtected = {
 
 const Protected = ({ onlyUnAuth = false, component }: TProtected) => {
 
-  const isAuthChecked = useSelector((store: any) => store.user.isAuthChecked);
+  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
   const location = useLocation();
 
-  const user = useSelector((store: any) => store.user.name);
+  const user = useSelector((store) => store.user.name);
 
   if (!isAuthChecked) {
+
     return <div>Загрузка...</div>
   }
 
   if (onlyUnAuth && user) {
+
     const { from } = location.state || { from: { pathname: "/" } };
     return <Navigate to={from} />;
   }
@@ -31,7 +33,6 @@ const Protected = ({ onlyUnAuth = false, component }: TProtected) => {
   if (!onlyUnAuth && !user) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
-
   return component;
 };
 

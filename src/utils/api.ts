@@ -62,99 +62,85 @@ export const getIngredientsServer = () => {
 
 export const getOrderServer = (order: string | undefined) => request(`/orders/${order}`);
 
-export const loginRequest = (data: IUser) => {
-  return fetch(`${BASE_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: data.email,
-      password: data.password,
-    }),
-  }).then(checkResponse);
-};
 
+export const loginRequest = (data: TForm) => request('/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    email: data.email,
+    password: data.password
+  })
+});
 
-export const logoutRequest = (data: IUser) => {
-  return fetch(`${BASE_URL}/auth/logout`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      token: data,
-    }),
-  }).then(checkResponse);
-};
+export const logoutRequest = () => request('/auth/logout', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    token: localStorage.getItem('refreshToken'),
+  })
+});
 
-export const registerRequest = (data: IUser) => {
-  return fetch(`${BASE_URL}/auth/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: data.email,
-      password: data.password,
-      name: data.name,
-    }),
-  }).then(checkResponse);
-};
+export const registerRequest = (data: TForm) => request('/auth/register', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    email: data.email,
+    password: data.password,
+    name: data.name
+  })
+});
 
-export const forgotPasswordRequest = (data: IUser) => {
-  return fetch(`${BASE_URL}/password-reset`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: data.email,
-    }),
-  }).then(checkResponse);
-};
+export const forgotPasswordRequest = (data: TForm) => request('/password-reset', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    email: data.email
+  })
+});
 
-export const resetPasswordRequest = (data: any) => {
-  return fetch(`${BASE_URL}/password-reset/reset`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      password: data.password,
-      token: data.token,
-    }),
-  }).then(checkResponse);
-};
+export const resetPasswordRequest = (data: TForm) => request('/password-reset/reset', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    password: data.password,
+    token: data.token
+  })
+});
 
-export const refreshToken = () => {
-  return fetch(`${BASE_URL}/auth/token`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
-    }),
-  }).then(checkResponse);
-};
-
-
+export const refreshToken = () => request('/auth/token', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+  },
+  body: JSON.stringify({
+    token: localStorage.getItem('refreshToken')
+  }),
+});
 
 export const fetchWithRefresh = async (url: string, options: TOptions) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
   } catch (err: any) {
-    if (err.message === "jwt expired") {
-      const refreshData = await refreshToken();
+    if (err.message === 'jwt expired') {
+      const refreshData = await refreshToken(); //обновляем токен
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
-      localStorage.setItem("refreshToken", refreshData.refreshToken);
-      localStorage.setItem("accessToken", refreshData.accessToken);
+      localStorage.setItem('refreshToken', refreshData.refreshToken);
+      localStorage.setItem('accessToken', refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(url, options);
+      const res = await fetch(url, options); //повторяем запрос
       return await checkResponse(res);
     } else {
       return Promise.reject(err);
