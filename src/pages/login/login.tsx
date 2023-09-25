@@ -47,7 +47,7 @@ export function LoginPage() {
           value={form.password}
           name={"password"}
         />
-        <Button htmlType="submit" type="primary" size="medium">
+        <Button htmlType="submit" type="primary" size="medium" data-cy="login-btn">
           Войти
         </Button>
       </form>

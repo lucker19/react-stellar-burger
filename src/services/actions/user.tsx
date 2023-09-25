@@ -88,7 +88,6 @@ export interface IForgotPasswordFailed {
 }
 export interface IForgotPasswordSuccess {
   readonly type: typeof FORGOT_PASSWORD_SUCCESS;
-
 }
 export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
@@ -216,25 +215,21 @@ export const logOut: AppThunk = () => {
         });
   };
 }
-export function registerUser(data: IUser) {
-  return function (dispatch: AppDispatch) {
+export const registerUser: AppThunk = (data: TForm) => {
+  return function(dispatch: AppDispatch) {
     dispatch({ type: REGISTER_REQUEST });
     registerRequest(data)
-      .then((res) => {
-        if (res && res.success) {
-          localStorage.setItem("accessToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
-          dispatch({
-            type: REGISTER_SUCCESS,
-            payload: res,
-          });
-        } else {
+        .then(res => {
+            localStorage.setItem('accessToken', res.accessToken);
+            localStorage.setItem('refreshToken', res.refreshToken);
+            dispatch({
+              type: REGISTER_SUCCESS,
+              payload: res
+            });
+        })
+        .catch(() => {
           dispatch({ type: REGISTER_FAILED });
-        }
-      })
-      .catch(() => {
-        dispatch({ type: REGISTER_FAILED });
-      });
+        });
   };
 }
 export const updateUser: AppThunk = (data: TForm) => {

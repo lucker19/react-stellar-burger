@@ -29,22 +29,22 @@ describe('orderReducer', () => {
 
 
   it('should handle CREATE_ORDER_NUMBER_SUCCESS', () => {
-    const exampleOrder = {
-      id: '123',
-      content: 'Test Order',
-    };
-    const action: any = {
+    const sampleOrderNumber = 546;
+
+    const action: TOrderActions = {
       type: CREATE_ORDER_NUMBER_SUCCESS,
-      order: exampleOrder,
+      payload: sampleOrderNumber,
     };
 
-    expect(orderReducer(initialState, action)).toEqual({
+    const expectedState = {
       ...initialState,
       createOrderNumberFailed: false,
       createOrderNumberRequest: false,
       createOrderNumberSuccess: true,
-      order: exampleOrder,
-    });
+      order: sampleOrderNumber,
+    };
+
+    expect(orderReducer(initialState, action)).toEqual(expectedState);
   });
 
   it('should handle CREATE_ORDER_NUMBER_FAILED', () => {

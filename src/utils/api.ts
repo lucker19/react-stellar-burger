@@ -127,7 +127,7 @@ export const refreshToken = () => request('/auth/token', {
   }),
 });
 
-export const fetchWithRefresh = async (url: string, options: TOptions) => {
+export const fetchWithRefresh = async (url: string, options: any) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);

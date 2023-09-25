@@ -9,3 +9,4 @@ export const modalCloseIcon = "[data-cy='modal-close-icon']"
 export const createOrderButton = '[data-cy="create-order-btn"]'
 export const mainPage = '[data-cy="main-page"]'
 export const localHost = 'http://localhost:3000'
+export const logInButton = '[data-cy="login-btn"]'

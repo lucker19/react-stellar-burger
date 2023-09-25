@@ -42,39 +42,43 @@ import {
       expect(userReducer(initialState, action)).toEqual(expectedState);
     });
     it('should handle SET_USER', () => {
-        const payloadData = {
-          id: '12345',
-          name: 'nikita',
-        };
-    
+      const sampleUser = {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+      };
+  
+      const action: any = {
+        type: SET_USER,
+        payload: {
+          user: sampleUser,
+        },
+      };
+  
+      const expectedState = {
+        ...initialState,
+        name: sampleUser.name,
+        email: sampleUser.email,
+        isAuthChecked: true,
+      };
+  
+      expect(userReducer(initialState, action)).toEqual(expectedState);
+    });
+
+      it('should handle GET_USER_FAILED', () => {
         const action: any = {
-          type: SET_USER,
-          payload: payloadData,
+          type: GET_USER_FAILED,
         };
     
         const expectedState = {
           ...initialState,
-          user: payloadData,
+          name: '',
+          email: '',
+          getUserFailed: true,
+          isAuthChecked: true,
         };
     
         expect(userReducer(initialState, action)).toEqual(expectedState);
       });
-
-      it('should handle GET_USER_FAILED', () => {
-    const action: any = {
-            type: GET_USER_FAILED,
-            payload: true,
-          };
-        const expectedState = {
-        ...initialState,
-        user: null,
-        getUserRequest: false,
-        getUserFailed: true,
-        };
-        
-        const newState = userReducer(initialState, action);
-        expect(newState).toEqual(expectedState);
-        });
 
   it('should handle LOGIN_REQUEST', () => {
     const action: any = {
@@ -90,21 +94,25 @@ import {
   });
 
   it('should handle LOGIN_SUCCESS', () => {
-    const userData = {
-      id: '12345',
-      name: 'nikita',
+    const sampleUser = {
+      name: 'John Doe',
+      email: 'john.doe@example.com',
     };
 
     const action: any = {
       type: LOGIN_SUCCESS,
-      data: userData,
+      payload: {
+        user: sampleUser,
+      },
     };
 
     const expectedState = {
       ...initialState,
       loginRequest: false,
       loginFailed: false,
-      user: userData,
+      name: sampleUser.name,
+      email: sampleUser.email,
+      isAuthChecked: true,
     };
 
     expect(userReducer(initialState, action)).toEqual(expectedState);
@@ -116,10 +124,11 @@ import {
 
     const expectedState = {
       ...initialState,
-      user: null,
       loginRequest: false,
       loginFailed: true,
     };
+
+    expect(userReducer(initialState, action)).toEqual(expectedState);
 
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });
@@ -189,7 +198,8 @@ import {
       ...initialState,
       logoutRequest: false,
       logoutFailed: false,
-      user: null,
+      name: initialState.name,
+      email: initialState.email,
     };
 
     expect(userReducer(initialState, action)).toEqual(expectedState);
@@ -222,23 +232,26 @@ import {
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });
 
-
   it('should handle REGISTER_SUCCESS', () => {
     const mockUserData = {
-      id: '123',
-      email: "test@yandex.ru",
+      user: {
+        name: 'Jane Doe',
+        email: 'jane.doe@example.com',
+      },
     };
 
     const action: any = {
       type: REGISTER_SUCCESS,
-      data: mockUserData,
+      payload: mockUserData,
     };
 
     const expectedState = {
       ...initialState,
       registerRequest: false,
       registerFailed: false,
-      user: mockUserData,
+      name: 'Jane Doe',
+      email: 'jane.doe@example.com',
+      isAuthChecked: true,
     };
 
     expect(userReducer(initialState, action)).toEqual(expectedState);
@@ -249,12 +262,13 @@ import {
     const action: any = {
       type: REGISTER_FAILED,
     };
-
+    
     const expectedState = {
       ...initialState,
       registerRequest: false,
       registerFailed: true,
-      user: null,
+      name: initialState.name,
+      email: initialState.email,
     };
 
     expect(userReducer(initialState, action)).toEqual(expectedState);
@@ -316,21 +330,23 @@ import {
 
   it('should handle UPDATE_USER_SUCCESS', () => {
     const mockUserData = {
-      id: '123',
-      name: 'nikita',
-      email: 'test@yandex.ru',
+      user: {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+      },
     };
 
     const action: any = {
       type: UPDATE_USER_SUCCESS,
-      data: mockUserData,
+      payload: mockUserData,
     };
 
     const expectedState = {
       ...initialState,
       updateUserRequest: false,
       updateUserFailed: false,
-      user: mockUserData,
+      name: 'John Doe',
+      email: 'john.doe@example.com',
     };
 
     expect(userReducer(initialState, action)).toEqual(expectedState);

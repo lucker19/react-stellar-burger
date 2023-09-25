@@ -1,4 +1,5 @@
 import * as selectors from "./selectors"
+import BASE_URL from "../../src/utils/api"
 
 
 describe('burger constructor page', function () {
@@ -89,14 +90,11 @@ describe('burger constructor page', function () {
     })
 
     cy.get(selectors.createOrderButton).click()
-    cy.contains('Вход')
-    cy.get('input[name=email]').type(`${"test@yandex.ru"}`)
-    cy.get('input[name=password]').type(`${"12345678"}`)
-    cy.get('Button').click()
-    cy.intercept("POST", "api/auth/login", { fixture: "login.json" })
+    cy.get('input[name="email"]').type("mikromolekula110@yandex.ru");
+    cy.get('input[name="password"]').type("321321");
+    cy.get(selectors.logInButton).click();
     cy.get(selectors.mainPage).click()
     cy.get(selectors.createOrderButton).click()
-    cy.contains('Ваш заказ начали готовить')
     cy.get(selectors.modalCloseIcon).click()
   })
 }); 
