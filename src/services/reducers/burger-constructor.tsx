@@ -10,13 +10,12 @@ import { TConstructorBurgerAction } from "../actions/burger-constructor";
 interface IConstructorBurgerState {
   fillings: TIngredients;
   buns: null | TIngredient;
-}
 
-const initialState: IConstructorBurgerState = {
+}
+export const initialState: IConstructorBurgerState = {
   buns: null,
   fillings: [],
 };
-
 export const burgerConstructorReducer = (
   state: IConstructorBurgerState = initialState,
   action: TConstructorBurgerAction
@@ -36,19 +35,21 @@ export const burgerConstructorReducer = (
       }
     }
     case DELETE_INGREDIENT: {
+      const index = state.fillings.indexOf(action.payload);
+      if (index > -1) {
+        state.fillings.splice(index, 1);
+      }
       return {
         ...state,
-        fillings: state.fillings.filter(
-          (item) => item.key !== action.payload
-        ),
+        fillings: [...state.fillings]
       };
     }
     case SORT_INGREDIENTS: {
       const main = [...state.fillings];
-      main.splice(action.toIndex, 0, main.splice(action.fromIndex, 1)[0]);
+      main.splice(action.payload.toIndex, 0, main.splice(action.payload.fromIndex, 1)[0]);
       return {
         ...state,
-        fillings: [...main],
+        fillings: [...main]
       };
     }
     case DELETE_ALL_INGREDIENTS: {

@@ -4,8 +4,8 @@ import { orderReducer } from "./order";
 import { ingredientDetailsReducer } from "./ingredients-details";
 import { burgerConstructorReducer } from "./burger-constructor";
 import { userReducer } from "./user";
-import { socketReducer } from "./socket";
 import { feedOrdersReducer } from "./orders-feed";
+import { profileOrdersReducer } from "./profile-orders";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -13,8 +13,8 @@ export const rootReducer = combineReducers({
   ingredientDetails: ingredientDetailsReducer,
   burgerConstructor: burgerConstructorReducer,
   user: userReducer,
-  socket: socketReducer,
   feedOrders: feedOrdersReducer,
+  profileOrders: profileOrdersReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

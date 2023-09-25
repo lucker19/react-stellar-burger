@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { logIn } from "../../services/actions/user";
 import { ChangeEvent } from "react";
+import { useForm } from "../../services/hooks";
+import { FormEvent } from "react";
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -45,7 +47,7 @@ export function LoginPage() {
           value={form.password}
           name={"password"}
         />
-        <Button htmlType="submit" type="primary" size="medium">
+        <Button htmlType="submit" type="primary" size="medium" data-cy="login-btn">
           Войти
         </Button>
       </form>

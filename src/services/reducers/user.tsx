@@ -20,12 +20,43 @@ import {
   UPDATE_USER_SUCCESS,
   SET_AUTH_CHECKED,
   SET_USER,
+  TUserActions,
 } from "../actions/user";
 
-const initialState = {
-  user: null,
+export type TUserInitialState = {
+  name: string;
+  email: string;
+  isAuthChecked: boolean;
+  getUserFailed: boolean;
+  getUserRequest: boolean;
+
+  loginRequest: boolean;
+  loginFailed: boolean;
+
+  logoutRequest: boolean;
+  logoutFailed: boolean;
+
+  registerRequest: boolean;
+  registerFailed: boolean;
+
+  updateUserRequest: boolean;
+  updateUserFailed: boolean;
+
+  forgotPasswordRequest: boolean;
+  forgotPasswordFailed: boolean;
+
+  resetPasswordRequest: boolean;
+  resetPasswordFailed: boolean;
+
+  isPasswordChanged: boolean;
+}
+
+export const initialState: TUserInitialState = {
+  name: '',
+  email: '',
   isAuthChecked: false,
   getUserFailed: false,
+  getUserRequest: false,
 
   loginRequest: false,
   loginFailed: false,
@@ -45,34 +76,37 @@ const initialState = {
   resetPasswordRequest: false,
   resetPasswordFailed: false,
 
-  isPasswordChanged: false,
+  isPasswordChanged: false
 };
 
-export const userReducer = (state = initialState, action: any) => {
-  switch (action.type) {
-    case SET_AUTH_CHECKED: {
+export const userReducer = (state: TUserInitialState = initialState, action: TUserActions) => {
+    switch (action.type) {
+      case SET_AUTH_CHECKED: {
+        return {
+          ...state,
+          isAuthChecked: action.payload,
+        };
+      }
+      case SET_USER:
       return {
         ...state,
-        isAuthChecked: action.payload,
-      };
-    }
-    case SET_USER:
-      return {
-        ...state,
-        user: action.payload,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        isAuthChecked: true
       };
     case GET_USER_FAILED: {
       return {
         ...state,
-        user: null,
-        getUserRequest: false,
+        name: initialState.name,
+        email: initialState.email,
         getUserFailed: true,
+        isAuthChecked: true
       };
     }
     case LOGIN_REQUEST: {
       return {
         ...state,
-        loginRequest: true,
+        loginRequest: true
       };
     }
     case LOGIN_SUCCESS: {
@@ -80,13 +114,14 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         loginRequest: false,
         loginFailed: false,
-        user: action.data,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        isAuthChecked: true
       };
     }
     case LOGIN_FAILED: {
       return {
         ...state,
-        user: null,
         loginRequest: false,
         loginFailed: true,
       };
@@ -94,7 +129,7 @@ export const userReducer = (state = initialState, action: any) => {
     case LOGOUT_REQUEST: {
       return {
         ...state,
-        logoutRequest: true,
+        logoutRequest: true
       };
     }
     case LOGOUT_SUCCESS: {
@@ -102,20 +137,21 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         logoutRequest: false,
         logoutFailed: false,
-        user: null,
+        name: initialState.name,
+        email: initialState.email,
       };
     }
     case LOGOUT_FAILED: {
       return {
         ...state,
         logoutRequest: false,
-        logoutFailed: true,
+        logoutFailed: true
       };
     }
     case REGISTER_REQUEST: {
       return {
         ...state,
-        registerRequest: true,
+        registerRequest: true
       };
     }
     case REGISTER_SUCCESS: {
@@ -123,7 +159,9 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         registerRequest: false,
         registerFailed: false,
-        user: action.data,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        isAuthChecked: true
       };
     }
     case REGISTER_FAILED: {
@@ -131,13 +169,14 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         registerRequest: false,
         registerFailed: true,
-        user: null,
+        name: initialState.name,
+        email: initialState.email,
       };
     }
     case UPDATE_USER_REQUEST: {
       return {
         ...state,
-        updateUserRequest: true,
+        updateUserRequest: true
       };
     }
     case UPDATE_USER_SUCCESS: {
@@ -145,20 +184,21 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         updateUserRequest: false,
         updateUserFailed: false,
-        user: action.data,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
       };
     }
     case UPDATE_USER_FAILED: {
       return {
         ...state,
         updateUserRequest: false,
-        updateUserFailed: true,
+        updateUserFailed: true
       };
     }
     case FORGOT_PASSWORD_REQUEST: {
       return {
         ...state,
-        forgotPasswordRequest: true,
+        forgotPasswordRequest: true
       };
     }
     case FORGOT_PASSWORD_SUCCESS: {
@@ -166,7 +206,7 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         isPasswordChanged: true,
         forgotPasswordRequest: false,
-        forgotPasswordFailed: false,
+        forgotPasswordFailed: false
       };
     }
     case FORGOT_PASSWORD_FAILED: {
@@ -179,7 +219,7 @@ export const userReducer = (state = initialState, action: any) => {
     case RESET_PASSWORD_REQUEST: {
       return {
         ...state,
-        resetPasswordRequest: true,
+        resetPasswordRequest: true
       };
     }
     case RESET_PASSWORD_SUCCESS: {
@@ -187,18 +227,18 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         resetPasswordRequest: false,
         isPasswordChanged: false,
-        resetPasswordFailed: false,
+        resetPasswordFailed: false
       };
     }
     case RESET_PASSWORD_FAILED: {
       return {
         ...state,
         resetPasswordRequest: false,
-        resetPasswordFailed: true,
+        resetPasswordFailed: true
       };
     }
     default: {
-      return state;
+      return state
     }
   }
-};
+}

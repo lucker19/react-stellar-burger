@@ -5,8 +5,7 @@ import order_accepted from "../../images/order_accepted.svg";
 import { RootState } from "../../services/reducers";
 
 const OrderDetails: FC = () => {
-  const getOrderNumber = (store: RootState) => store.order.order;
-  const orderNumber = useSelector(getOrderNumber);
+  const orderNumber = useSelector((store) => store.order.order);
   return (
     <div className={styles.container}>
       <p className="text text_type_digits-large">{orderNumber}</p>

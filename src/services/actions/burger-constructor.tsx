@@ -1,5 +1,5 @@
 import { TIngredient } from "../../utils/prop-types";
-
+import { v4 as uuidv4 } from "uuid";
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
 export const DELETE_ALL_INGREDIENTS = "DELETE_ALL_INGREDIENTS";
@@ -8,6 +8,7 @@ export const SORT_INGREDIENTS = "SORT_INGREDIENTS";
 export interface IAddIngredient {
   readonly type: typeof ADD_INGREDIENT;
   readonly payload: TIngredient;
+  
 }
 
 export interface IDeleteIngredient {
@@ -17,32 +18,24 @@ export interface IDeleteIngredient {
 
 export interface ISortIngredient {
   readonly type: typeof SORT_INGREDIENTS;
-  readonly payload: { dragIndex: number; hoverIndex: number };
-  readonly toIndex: number;
-  readonly fromIndex: number;
+  readonly payload: {'fromIndex': number, 'toIndex': number};
 }
 
 export interface IDeleteAllIngredients {
   readonly type: typeof DELETE_ALL_INGREDIENTS;
-  readonly payload: string;
 }
 
 export type TConstructorBurgerAction =
-  | IAddIngredient
+    IAddIngredient
   | IDeleteIngredient
   | ISortIngredient
   | IDeleteAllIngredients;
 
-export const addIngredient = (payload: any) => ({
-  type: ADD_INGREDIENT,
-  payload,
-});
-export const deleteIngredient = (ingredient: TIngredient) => ({
-  type: DELETE_INGREDIENT,
-  ingredient,
-});
-export const sortIngredients = (fromIndex: number, toIndex: number) => ({
-  type: SORT_INGREDIENTS,
-  fromIndex: fromIndex,
-  toIndex: toIndex,
-});
+  export const addIngredient = (ingredient: any) => ({ 
+    type: ADD_INGREDIENT,         
+    payload: {
+    ...ingredient, 
+   uniqueId: uuidv4()  
+}  });
+  export const deleteIngredient = (ingredient: TIngredient): IDeleteIngredient => ({ type: DELETE_INGREDIENT,  payload: ingredient });
+  export const sortIngredients = (index: { 'fromIndex': number, 'toIndex': number }): ISortIngredient => ({ type: SORT_INGREDIENTS, payload: index });

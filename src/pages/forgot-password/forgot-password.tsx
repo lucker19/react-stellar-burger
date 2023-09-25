@@ -14,7 +14,8 @@ export function ForgotPasswordPage(): ReactElement {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    email: "",
+    email: "", 
+    password: "",
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -22,7 +23,7 @@ export function ForgotPasswordPage(): ReactElement {
   };
 
   const isPasswordChanged = useSelector(
-    (store: RootState) => store.user.isPasswordChanged
+    (store: any) => store.user.isPasswordChanged
   );
 
   useEffect(() => {

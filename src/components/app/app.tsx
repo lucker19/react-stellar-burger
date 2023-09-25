@@ -48,12 +48,14 @@ function App(): ReactElement {
   };
 
   return (
+    
     <DndProvider backend={HTML5Backend}>
       <div className={styles.app}>
         <AppHeader />
         <Routes location={background || location}>
           <Route path={`/`} element={<HomePage />} />
           <Route path={"/feed"} element={<FeedPage />} />
+          <Route path={"/feed/:id"} element={<FeedOrderPage />} />
           <Route
             path={`/login`}
             element={<OnlyUnAuth component={<LoginPage />} />}
@@ -81,6 +83,8 @@ function App(): ReactElement {
               path={"/profile/orders"}
               element={<OnlyAuth component={<ProfileOrders />} />}
             />
+<Route path={"/profile/orders/:id"} element={<OnlyAuth component={<FeedOrderPage />} />} />
+            
           </Route>
           <Route path={"/ingredients/:ingredientId"} element={<Ingredient />} />
           <Route
@@ -88,39 +92,37 @@ function App(): ReactElement {
             element={<IngredientDetails />}
           />
         </Routes>
-        {background && (
-          <Routes>
-            <Route
-              path="/ingredients/:ingredientId"
-              element={
-                <Modal
-                  handleClose={handleModalClose}
-                  header={"Детали ингредиента"}
-                >
-                  <IngredientDetails />
-                </Modal>
-              }
-            />
-            <Route
-              path="/feed/:id"
-              element={
-                <Modal handleClose={handleModalClose}>
-                  <FeedOrderPage popup={true} />
-                </Modal>
-              }
-            />
-            <Route
-              path="/profile/orders/:id"
-              element={
-                <Modal handleClose={handleModalClose}>
-                  <FeedOrderPage popup={true} />
-                </Modal>
-              }
-            />
-          </Routes>
-        )}
+        { background && (
+              <Routes>
+                <Route
+                    path='/ingredients/:ingredientId'
+                    element={
+                      <Modal handleClose={handleModalClose} header={"Детали ингредиента"}>
+                        <IngredientDetails />
+                      </Modal>
+                    }
+                />
+                <Route
+                    path='/feed/:id'
+                    element={
+                      <Modal handleClose={handleModalClose}>
+                        <FeedOrderPage isModal={true}/>
+                      </Modal>
+                    }
+                />
+                <Route
+                    path='/profile/orders/:id'
+                    element={
+                      <Modal handleClose={handleModalClose}>
+                        <FeedOrderPage isModal={true}/>
+                      </Modal>
+                    }
+                />
+              </Routes>
+          )}
       </div>
     </DndProvider>
+    
   );
 }
 

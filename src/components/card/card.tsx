@@ -46,6 +46,7 @@ const Card: FC<IIngredientInterface> = ({ card }) => {
         to={`/ingredients/${ingredientId}`}
         state={{ background: location }}
         className={styles.card}
+        data-cy={`ingredient-${card.type}`}
       >
         {!!counter && (
           <Counter count={counter} size="default" extraClass={`m-1`} />

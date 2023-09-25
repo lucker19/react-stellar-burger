@@ -3,8 +3,13 @@ import {
   DELETE_INGREDIENTS_DETAILS,
   TIngredientDetailsActions,
 } from "../actions/ingredients-details";
+import { TIngredient } from "../../utils/prop-types";
 
-const initialState = {
+export type TIngredientDetailsInitialState = {
+  ingredientDetails: TIngredient | null;
+};
+
+export const initialState: TIngredientDetailsInitialState = {
   ingredientDetails: null,
 };
 

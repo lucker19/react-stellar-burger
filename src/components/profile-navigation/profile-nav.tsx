@@ -8,27 +8,24 @@ import { useSelector,useDispatch } from "../../services/hooks";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { updateUser } from "../../services/actions/user";
 import { RootState } from "../../services/reducers";
+import { useForm } from "../../services/hooks";
+import { FormEvent } from "react";
 
 const ProfileNav = () => {
   const dispatch = useDispatch();
-  const getUser = (store: RootState) => store.user.user;
-  const user = useSelector(getUser);
-  const [form, setForm] = useState({
-    email: user.email,
-    password: "",
-    name: user.name,
+  const { name, email } = useSelector((store) => store.user);
+  const { form, onChange, setForm } = useForm({
+    email: email,
+    password: '',
+    name: name
   });
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const onResetUserData = (e: SyntheticEvent) => {
+  const onResetUserData = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setForm({
-      name: user.name,
-      email: user.email,
-      password: "",
+      name: name,
+      email: email,
+      password: ''
     });
   };
 
@@ -69,20 +66,15 @@ const ProfileNav = () => {
           errorText={"Ошибка"}
           size={"default"}
         />
-        <div
-          className={
-            form.name === user.name &&
-            form.email === user.email &&
-            form.password === ""
+<div className={form.name === name && form.email === email && form.password === ''
               ? `${styles.buttons}`
-              : `${styles.buttons_active} mt-6`
-          }
-        >
+              :
+              `${styles.buttons_active} mt-6`}>
           <Button
             htmlType="reset"
             type="secondary"
             size="large"
-            onClick={onResetUserData}
+            onClick={() => onResetUserData}
           >
             Отмена
           </Button>

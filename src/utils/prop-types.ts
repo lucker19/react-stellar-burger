@@ -14,34 +14,65 @@ import { TWsProfileOrdersActions } from "../services/actions/profile-orders";
 export type TIngredient = {
   _id: string;
   name: string;
-  price: number;
   type: string;
-  calories: number;
-  carbohydrates: number;
+  proteins:number;
   fat: number;
-  proteins: number;
+  carbohydrates: number;
+  calories: number;
+  price: number;
   image: string;
-  image_large: string;
   image_mobile: string;
+  image_large: string;
   __v: number;
-  uuid?: string;
-  index?: number;
-  key?: any;
-  id?: string
+  key: string;
+  uniqueId?: string;
 };
-export type TIngredientConstructor = TIngredient & {
-  id: string;
+
+export type TSelectedIngredient = TIngredient & {
+  id?: string;
+}
+
+export type TUser = {
+  accessToken: string;
+  refreshToken: string;
+  user: {
+      email: string;
+      name: string;
+      password?: string;
+  };
+};
+
+export type TImages = {
+  images: string;
+  name: string;
+};
+
+export type TUserUpdate = {
+  success: boolean;
+  user: {
+      email: string;
+      name: string;
+  };
+};
+
+
+export type TForm = {
+  name?: string,
+  password: string,
+  email: string,
+  token?: string
 };
 
 export interface IUser {
-  name: string;
+  name?: string;
   email: string;
   password: string;
+  token?: string
 }
 export interface IOrder {
   number: number;
 }
-
+export type TIngredientConstructor = TIngredient & { key: string };
 export type TIngredients = Array<TIngredient>;
 
 export type TIngredientsMap = {
@@ -56,7 +87,7 @@ export type TAppActions =
   | TIngredientsActions
   | TWsActions
   | TOredersFEedActions
-  | TWsProfileOrdersActions;
+  | TWsProfileOrdersActions
 export type TConstMiddlewareActions = IConstWsActions;
 
 export type AppThunk<ReturnType = void> = ActionCreator<
@@ -65,13 +96,23 @@ export type AppThunk<ReturnType = void> = ActionCreator<
 export type AppDispatch = typeof store.dispatch;
 
 export type TOrder = {
-  _id: string;
-  ingredients: Array<string>;
-  status: string;
-  name: string;
   createdAt: string;
-  updatedAt: string;
+  ingredients: string[];
+  name: string;
   number: number;
+  owner: string;
+  status: string;
+  updatedAt: string;
+  _id: string;
+  __v: number;
+
+};
+
+export type TOrders = {
+  orders: TOrder[];
+  success: boolean;
+  total: number;
+  totalToday: number;
 };
 
 export const getTime = (createdAt: string) => {

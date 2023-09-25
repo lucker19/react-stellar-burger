@@ -16,6 +16,7 @@ function AppHeader() {
         <NavLink
           to={{ pathname: `/` }}
           className={`pt-4 pr-5 pb-4 pl-5 ${styles.menu_item}`}
+          data-cy="main-page"
         >
           <BurgerIcon type={pathname === "/" ? "primary" : "secondary"} />
           <p

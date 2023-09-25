@@ -6,12 +6,34 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_SERVER,
   DELETE_ORDER_NUMBER,
+  TOrderActions,
 } from "../actions/order";
 import { TAppActions } from "../../utils/prop-types";
+import { Reducer } from "redux";
+import { TOrder } from "../../utils/prop-types";
 
-const initialState = {
+
+export interface IOrderInitialState{
+  order: number | null,
+  orderData: TOrder,
+  createOrderNumberRequest: boolean,
+  createOrderNumberFailed: boolean,
+  createOrderNumberSuccess: boolean,
+  getOrderRequest: boolean,
+  getOrderFailed: boolean,
+}
+
+export const initialState = {
   order: null,
-  orderData: {},
+  orderData: {    createdAt: '',
+  ingredients: [],
+  name: '',
+  number: 0,
+  owner: '',
+  status: '',
+  updatedAt: '',
+  _id: '',
+  __v: 0},
   createOrderNumberRequest: false,
   createOrderNumberFailed: false,
   createOrderNumberSuccess: false,
@@ -19,7 +41,7 @@ const initialState = {
   getOrderFailed: false,
 };
 
-export const orderReducer = (state = initialState, action: any) => {
+export const orderReducer: Reducer< IOrderInitialState, TOrderActions > = (state = initialState, action: TOrderActions) => {
   switch (action.type) {
     case CREATE_ORDER_NUMBER_SERVER: {
       return {
@@ -28,14 +50,14 @@ export const orderReducer = (state = initialState, action: any) => {
       };
     }
     case CREATE_ORDER_NUMBER_SUCCESS: {
-      return {
-        ...state,
-        createOrderNumberFailed: false,
-        createOrderNumberRequest: false,
-        createOrderNumberSuccess: true,
-        order: action.order,
-      };
-    }
+        return {
+          ...state,
+          createOrderNumberFailed: false,
+          createOrderNumberRequest: false,
+          createOrderNumberSuccess: true,
+          order: action.payload
+        };
+      }
     case CREATE_ORDER_NUMBER_FAILED: {
       return {
         ...state,

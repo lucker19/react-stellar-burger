@@ -24,7 +24,7 @@ function IngredientDetails(): ReactElement {
       className={background ? styles.modal_container : styles.main_container}
     >
       <img className={styles.image} src={ingredient?.image} alt="Ингредиент" />
-      <p className={"mt-4 text text_type_main-medium"}>{ingredient?.name}</p>
+      <p className={"mt-4 text text_type_main-medium"} data-cy="ingredient-details-name">{ingredient?.name}</p>
       <ul className={`mt-8 ${styles.list}`}>
         <li className={styles.list_card}>
           <p className={"text text_type_main-default text_color_inactive"}>
